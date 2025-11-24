@@ -1,0 +1,608 @@
+.knowledge-card {
+  background: white;
+  border-radius: 16px;
+  border: 2px solid #e5e7eb;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.knowledge-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+.knowledge-card.expanded {
+  border-color: #8b5cf6;
+  box-shadow: 0 12px 35px rgba(139, 92, 246, 0.2);
+}
+
+/* 卡片標題 */
+.card-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.card-header:hover {
+  background: #f8fafc;
+}
+
+.header-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.article-title {
+  color: #1f2937;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.4;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.bookmark-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.4rem;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  color: #d1d5db;
+}
+
+.bookmark-btn:hover {
+  background: rgba(251, 191, 36, 0.1);
+  transform: scale(1.1);
+  color: #fbbf24;
+}
+
+.bookmark-btn.bookmarked {
+  color: #fbbf24;
+  animation: starGlow 0.6s ease;
+}
+
+@keyframes starGlow {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.article-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.meta-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.meta-left > span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.meta-left .author-icon,
+.meta-left .date-icon,
+.meta-left .time-icon {
+  font-size: 0.8rem;
+}
+
+.difficulty-badge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.expand-icon {
+  font-size: 1.2rem;
+  color: #9ca3af;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.knowledge-card.expanded .expand-icon {
+  transform: rotate(90deg);
+}
+
+/* 分類標籤 */
+.article-categories {
+  padding: 0 20px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.category-tag {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  color: #1e40af;
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+  transition: all 0.3s ease;
+}
+
+.category-tag:hover {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  transform: translateY(-1px);
+}
+
+.more-categories {
+  color: #6b7280;
+  font-size: 0.75rem;
+  font-style: italic;
+}
+
+/* 文章預覽 */
+.article-preview {
+  padding: 0 20px 16px;
+}
+
+.article-excerpt {
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0 0 16px 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.key-points {
+  background: #f8fafc;
+  border-left: 4px solid #3b82f6;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin-top: 12px;
+}
+
+.key-points-title {
+  color: #374151;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.key-points-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.key-point-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #4b5563;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.point-marker {
+  color: #3b82f6;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.more-points {
+  color: #6b7280;
+  font-size: 0.8rem;
+  font-style: italic;
+  padding-left: 16px;
+}
+
+/* 展開內容 */
+.expanded-content {
+  padding: 0 20px 16px;
+  border-top: 2px solid #f3f4f6;
+  margin-top: 16px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.expanded-content h4 {
+  color: #374151;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 16px 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expanded-content h4::before {
+  content: "▪";
+  color: #3b82f6;
+  font-weight: 900;
+}
+
+.article-content {
+  margin-bottom: 20px;
+}
+
+.content-text {
+  color: #4b5563;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.content-text p {
+  margin-bottom: 12px;
+}
+
+.content-text h1, .content-text h2, .content-text h3 {
+  color: #374151;
+  margin: 20px 0 12px 0;
+}
+
+.content-text ul, .content-text ol {
+  padding-left: 20px;
+  margin-bottom: 12px;
+}
+
+.content-text li {
+  margin-bottom: 6px;
+}
+
+/* 相關症狀 */
+.related-symptoms {
+  margin-bottom: 20px;
+}
+
+.symptoms-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.symptom-tag {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  color: #92400e;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #fcd34d;
+}
+
+/* 推薦方劑 */
+.recommended-formulas {
+  margin-bottom: 20px;
+}
+
+.formulas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.formula-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 14px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 8px;
+}
+
+.formula-name {
+  color: #166534;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.formula-description {
+  color: #4ade80;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+/* 注意事項 */
+.article-warnings {
+  margin-bottom: 20px;
+}
+
+.warnings-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.warning-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+}
+
+.warning-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.warning-text {
+  color: #991b1b;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* 文章統計 */
+.article-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+.stat-icon {
+  font-size: 0.75rem;
+}
+
+/* 操作按鈕 */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+}
+
+.card-actions button,
+.card-actions a {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.read-btn {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+}
+
+.read-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.share-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.share-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.external-link-btn {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+.external-link-btn:hover {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.card-actions button:disabled {
+  background: #d1d5db !important;
+  color: #9ca3af !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* 載入覆層 */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  z-index: 10;
+}
+
+.loading-spinner {
+  font-size: 2rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .knowledge-card {
+    border-radius: 12px;
+  }
+  
+  .card-header {
+    padding: 16px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .title-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .bookmark-btn {
+    align-self: flex-end;
+  }
+  
+  .article-meta {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .meta-left {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .difficulty-badge {
+    align-self: center;
+  }
+  
+  .article-categories {
+    padding: 0 16px 12px;
+    justify-content: center;
+  }
+  
+  .article-preview {
+    padding: 0 16px 16px;
+  }
+  
+  .expanded-content {
+    padding: 0 16px 16px;
+  }
+  
+  .article-stats {
+    padding: 12px 16px;
+    justify-content: center;
+  }
+  
+  .card-actions {
+    padding: 12px 16px;
+    flex-direction: column;
+  }
+  
+  .card-actions button,
+  .card-actions a {
+    min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-header {
+    padding: 12px;
+  }
+  
+  .article-title {
+    font-size: 1.1rem;
+  }
+  
+  .article-categories {
+    padding: 0 12px 12px;
+  }
+  
+  .article-preview {
+    padding: 0 12px 12px;
+  }
+  
+  .expanded-content {
+    padding: 0 12px 12px;
+  }
+  
+  .key-points {
+    padding: 10px 12px;
+  }
+  
+  .meta-left {
+    gap: 12px;
+  }
+  
+  .meta-left > span {
+    font-size: 0.8rem;
+  }
+  
+  .formulas-list {
+    gap: 6px;
+  }
+  
+  .formula-item {
+    padding: 8px 12px;
+  }
+}

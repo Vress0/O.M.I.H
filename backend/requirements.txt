@@ -1,0 +1,37 @@
+# O.M.I.H 中醫智慧健康平台後端依賴套件
+
+# Web 框架
+Flask==2.3.3
+Flask-CORS==4.0.0
+
+# AI 和機器學習
+openai==1.3.5
+scikit-learn==1.3.0
+numpy==1.24.3
+
+# 資料處理
+pandas==2.0.3
+
+# HTTP 請求
+requests==2.31.0
+
+# 日期和時間處理
+python-dateutil==2.8.2
+
+# 配置管理
+python-dotenv==1.0.0
+
+# JSON 處理 (內建於 Python)
+# uuid (內建於 Python)
+# datetime (內建於 Python)
+# typing (內建於 Python)
+
+# 可選依賴 (用於生產環境)
+gunicorn==21.2.0  # WSGI 服務器
+redis==5.0.1      # 緩存 (如需要)
+celery==5.3.4     # 任務隊列 (如需要)
+
+# 開發工具
+pytest==7.4.3
+black==23.9.1
+flake8==6.1.0

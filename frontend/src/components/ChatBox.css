@@ -1,0 +1,251 @@
+/* ChatBox.css - 已經在 components 目錄中存在 */
+/* 這個檔案應該從原始 components 目錄複製 */
+/* 如果這個檔案顯示，表示複製過程有問題 */
+
+/* AI 聊天框樣式 */
+.chatbox-container {
+  display: flex;
+  flex-direction: column;
+  height: 600px;
+  max-height: 80vh;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+.chatbox-container.minimized {
+  height: 60px;
+  max-height: 60px;
+}
+
+.chatbox-header {
+  background: linear-gradient(45deg, #ff9a9e, #fecfef);
+  color: white;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px 20px 0 0;
+}
+
+.chatbox-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.minimize-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+.minimize-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  max-width: 80%;
+  padding: 12px 18px;
+  border-radius: 18px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.message.user {
+  align-self: flex-end;
+  background: linear-gradient(45deg, #4facfe, #00f2fe);
+  color: white;
+  border-bottom-right-radius: 6px;
+}
+
+.message.assistant {
+  align-self: flex-start;
+  background: #f8f9fa;
+  color: #2c3e50;
+  border: 1px solid #e9ecef;
+  border-bottom-left-radius: 6px;
+}
+
+.message-time {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 5px;
+}
+
+.chat-input-container {
+  padding: 20px;
+  border-top: 1px solid #e9ecef;
+  background: white;
+}
+
+.chat-input-form {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.chat-input {
+  flex: 1;
+  min-height: 45px;
+  max-height: 120px;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 22px;
+  resize: none;
+  font-family: inherit;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.chat-input:focus {
+  border-color: #4facfe;
+  box-shadow: 0 0 0 3px rgba(79, 172, 254, 0.1);
+}
+
+.chat-input::placeholder {
+  color: #adb5bd;
+}
+
+.send-button {
+  width: 45px;
+  height: 45px;
+  background: linear-gradient(45deg, #4facfe, #00f2fe);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.send-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(79, 172, 254, 0.4);
+}
+
+.send-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #6c757d;
+  font-style: italic;
+  padding: 12px 18px;
+}
+
+.typing-dots {
+  display: flex;
+  gap: 4px;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  background: #6c757d;
+  border-radius: 50%;
+  animation: typing 1.4s ease-in-out infinite both;
+}
+
+.typing-dot:nth-child(1) { animation-delay: -0.32s; }
+.typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes typing {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .chatbox-container {
+    height: 500px;
+    max-height: 70vh;
+    border-radius: 15px;
+  }
+
+  .chatbox-header {
+    padding: 15px;
+    border-radius: 15px 15px 0 0;
+  }
+
+  .chat-messages {
+    padding: 15px;
+  }
+
+  .chat-input-container {
+    padding: 15px;
+  }
+
+  .message {
+    font-size: 0.9rem;
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 480px) {
+  .chatbox-container {
+    height: 400px;
+    max-height: 60vh;
+  }
+
+  .chatbox-header {
+    padding: 12px;
+  }
+
+  .chatbox-title {
+    font-size: 1.1rem;
+  }
+
+  .chat-messages {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .chat-input-container {
+    padding: 12px;
+  }
+
+  .chat-input-form {
+    gap: 8px;
+  }
+
+  .send-button {
+    width: 40px;
+    height: 40px;
+    font-size: 1.1rem;
+  }
+}

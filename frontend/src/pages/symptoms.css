@@ -1,0 +1,727 @@
+.symptoms-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%);
+  padding-bottom: 40px;
+}
+
+/* 頁面標題 */
+.page-header {
+  background: linear-gradient(135deg, #1e40af, #3b82f6);
+  color: white;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.header-content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.title-icon {
+  font-size: 1.8rem;
+}
+
+.page-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+  opacity: 0.9;
+}
+
+.page-actions {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.history-btn,
+.clear-btn {
+  padding: 10px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.history-btn:hover,
+.clear-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+/* 症狀歷史區域 */
+.history-section {
+  max-width: 800px;
+  margin: -20px auto 40px;
+  padding: 0 20px;
+}
+
+.history-title {
+  color: #1f2937;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+  text-align: center;
+}
+
+.history-list {
+  background: white;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.2s ease;
+}
+
+.history-item:last-child {
+  border-bottom: none;
+}
+
+.history-item:hover {
+  background: #f8fafc;
+}
+
+.history-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.history-symptoms {
+  color: #1f2937;
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.history-date {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+.reanalyze-btn {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.reanalyze-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-1px);
+}
+
+.reanalyze-btn:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+}
+
+.no-history {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background: white;
+  border-radius: 12px;
+  border: 2px dashed #d1d5db;
+  text-align: center;
+}
+
+.no-history-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+  opacity: 0.5;
+}
+
+.no-history-text {
+  color: #6b7280;
+}
+
+/* 主要內容區域 */
+.main-content {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.input-section {
+  margin-bottom: 40px;
+}
+
+/* 分析載入狀態 */
+.analyzing-section {
+  background: white;
+  border-radius: 20px;
+  padding: 60px 40px;
+  text-align: center;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  margin-bottom: 40px;
+}
+
+.analyzing-spinner {
+  font-size: 4rem;
+  margin-bottom: 24px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% { 
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+}
+
+.analyzing-title {
+  color: #1f2937;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+}
+
+.analyzing-description {
+  color: #6b7280;
+  font-size: 1.1rem;
+  margin: 0 0 32px 0;
+}
+
+.analyzing-steps {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.step {
+  padding: 10px 16px;
+  background: #f3f4f6;
+  color: #6b7280;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.step.active {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  color: #1e40af;
+  border: 1px solid #bfdbfe;
+}
+
+/* 分析結果區域 */
+.analysis-section {
+  background: white;
+  border-radius: 20px;
+  border: 2px solid #e5e7eb;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+}
+
+.result-header {
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+  padding: 24px;
+  border-bottom: 2px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.result-title {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.result-icon {
+  font-size: 1.3em;
+}
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.detail-btn,
+.doctor-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.detail-btn {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+  color: white;
+}
+
+.detail-btn:hover {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  transform: translateY(-2px);
+}
+
+.doctor-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.doctor-btn:hover {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-2px);
+}
+
+.result-content {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* 結果卡片 */
+.result-card {
+  padding: 24px;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.result-card:last-child {
+  border-bottom: none;
+}
+
+.card-title {
+  color: #1f2937;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-icon {
+  font-size: 1.1em;
+}
+
+/* 症狀摘要卡片 */
+.summary-card {
+  background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+}
+
+.symptoms-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.submitted-symptoms strong,
+.severity-info strong {
+  color: #374151;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.symptom-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.symptom-tag {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  color: #1e40af;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #93c5fd;
+}
+
+.severity-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.severity-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 12px;
+  width: fit-content;
+}
+
+.severity-icon {
+  font-size: 1.2rem;
+}
+
+.severity-text {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* 中醫分析卡片 */
+.analysis-card {
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+}
+
+.tcm-analysis {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.analysis-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.analysis-item strong {
+  color: #92400e;
+  min-width: 100px;
+}
+
+.constitution-type {
+  background: rgba(146, 64, 14, 0.1);
+  color: #92400e;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.pattern-text {
+  color: #374151;
+  font-weight: 500;
+}
+
+.organ-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.organ-tag {
+  background: rgba(146, 64, 14, 0.1);
+  color: #92400e;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* 調理建議卡片 */
+.suggestions-card {
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+}
+
+.suggestions-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.suggestion-category {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.suggestion-title {
+  color: #065f46;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+}
+
+.suggestion-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #374151;
+  line-height: 1.5;
+}
+
+.suggestion-marker {
+  color: #10b981;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.acupoint-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+}
+
+.acupoint-item {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 10px 12px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.acupoint-name {
+  color: #065f46;
+  font-weight: 600;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.acupoint-location {
+  color: #6b7280;
+  font-size: 0.8rem;
+  display: block;
+  margin-top: 2px;
+}
+
+/* 推薦科別卡片 */
+.specialties-card {
+  background: linear-gradient(135deg, #faf5ff, #f3e8ff);
+}
+
+.specialties-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.specialty-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.specialty-tag {
+  background: linear-gradient(135deg, #e9d5ff, #ddd6fe);
+  color: #6d28d9;
+  padding: 8px 16px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border: 1px solid #c4b5fd;
+}
+
+.specialty-note {
+  color: #6b7280;
+  font-size: 0.9rem;
+  margin: 0;
+  font-style: italic;
+}
+
+/* 注意事項卡片 */
+.warning-card {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+}
+
+.warning-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.warning-item {
+  color: #991b1b;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.warning-item::before {
+  content: "⚠️";
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.warning-item.urgent {
+  background: rgba(220, 38, 38, 0.1);
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #fca5a5;
+  font-weight: 600;
+}
+
+.warning-item.urgent::before {
+  content: "";
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .page-header {
+    padding: 32px 16px;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .page-description {
+    font-size: 1rem;
+  }
+  
+  .page-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+  
+  .history-section {
+    margin: -20px 16px 32px;
+    padding: 0;
+  }
+  
+  .main-content {
+    padding: 0 16px;
+  }
+  
+  .analyzing-section {
+    padding: 40px 24px;
+  }
+  
+  .analyzing-title {
+    font-size: 1.5rem;
+  }
+  
+  .analyzing-steps {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .result-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 20px;
+  }
+  
+  .result-actions {
+    justify-content: stretch;
+    flex-direction: column;
+  }
+  
+  .result-card {
+    padding: 20px;
+  }
+  
+  .symptoms-summary {
+    gap: 12px;
+  }
+  
+  .analysis-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  
+  .acupoint-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .specialty-tags {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    font-size: 1.5rem;
+  }
+  
+  .analyzing-section {
+    padding: 32px 16px;
+  }
+  
+  .analyzing-spinner {
+    font-size: 3rem;
+  }
+  
+  .analyzing-title {
+    font-size: 1.3rem;
+  }
+  
+  .result-card {
+    padding: 16px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+  }
+  
+  .history-item {
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .reanalyze-btn {
+    align-self: stretch;
+    justify-content: center;
+  }
+}

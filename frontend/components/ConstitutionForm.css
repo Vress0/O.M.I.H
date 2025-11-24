@@ -1,0 +1,648 @@
+.constitution-form {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  min-height: 80vh;
+}
+
+/* 載入狀態 */
+.constitution-form.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading-content {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.loading-content .loading-spinner {
+  font-size: 3rem;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+  display: block;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.loading-content p {
+  color: #6b7280;
+  font-size: 1.1rem;
+}
+
+/* 表單標題 */
+.form-header {
+  text-align: center;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid #f3f4f6;
+}
+
+.header-content {
+  margin-bottom: 24px;
+}
+
+.form-title {
+  color: #1f2937;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.title-icon {
+  font-size: 1.5em;
+}
+
+.form-description {
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 進度條 */
+.progress-section {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.progress-text {
+  color: #374151;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.progress-percentage {
+  color: #3b82f6;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  transition: width 0.6s ease;
+  border-radius: 4px;
+}
+
+/* 部分導航 */
+.section-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.section-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 2px solid #e5e7eb;
+  background: white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  min-width: 80px;
+}
+
+.section-tab:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.section-tab.active {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+}
+
+.section-tab.completed {
+  border-color: #10b981;
+  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+}
+
+.section-number {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #f3f4f6;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.section-tab.active .section-number {
+  background: #3b82f6;
+  color: white;
+}
+
+.section-tab.completed .section-number {
+  background: #10b981;
+  color: white;
+}
+
+.section-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-align: center;
+}
+
+.section-tab.active .section-name {
+  color: #1d4ed8;
+}
+
+.section-tab.completed .section-name {
+  color: #065f46;
+}
+
+/* 當前部分 */
+.current-section {
+  margin-bottom: 32px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.section-title {
+  color: #1f2937;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.section-description {
+  color: #6b7280;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* 問題容器 */
+.questions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.question-item {
+  padding: 24px;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fafafa;
+  transition: all 0.3s ease;
+}
+
+.question-item:hover {
+  border-color: #3b82f6;
+  background: white;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
+}
+
+.question-item.error {
+  border-color: #ef4444;
+  background: #fef2f2;
+}
+
+.question-header {
+  margin-bottom: 16px;
+}
+
+.question-text {
+  color: #1f2937;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.required {
+  color: #ef4444;
+  margin-left: 4px;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.error-message::before {
+  content: "⚠️";
+  font-size: 0.8rem;
+}
+
+/* 答案容器 */
+.answer-container {
+  width: 100%;
+}
+
+/* 輸入框 */
+.text-input,
+.number-input {
+  width: 100%;
+  padding: 12px 16px;
+  border: 2px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+  background: white;
+  box-sizing: border-box;
+}
+
+.text-input:focus,
+.number-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.question-item.error .text-input,
+.question-item.error .number-input {
+  border-color: #ef4444;
+}
+
+/* 單選按鈕組 */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.radio-option:hover {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.radio-option input[type="radio"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #3b82f6;
+}
+
+.radio-option input[type="radio"]:checked + .radio-text {
+  color: #1d4ed8;
+  font-weight: 600;
+}
+
+.radio-text {
+  color: #374151;
+  font-size: 1rem;
+  flex: 1;
+}
+
+/* 複選框組 */
+.checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.checkbox-option:hover {
+  border-color: #10b981;
+  background: #ecfdf5;
+}
+
+.checkbox-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #10b981;
+}
+
+.checkbox-option input[type="checkbox"]:checked + .checkbox-text {
+  color: #065f46;
+  font-weight: 600;
+}
+
+.checkbox-text {
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+/* 量表組 */
+.scale-group {
+  width: 100%;
+}
+
+.scale-options {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.scale-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+  flex: 1;
+  min-width: 80px;
+  text-align: center;
+}
+
+.scale-option:hover {
+  border-color: #8b5cf6;
+  background: #faf5ff;
+}
+
+.scale-option input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  accent-color: #8b5cf6;
+}
+
+.scale-option input[type="radio"]:checked ~ .scale-number {
+  color: #6d28d9;
+  font-weight: 700;
+}
+
+.scale-option input[type="radio"]:checked ~ .scale-label {
+  color: #6d28d9;
+  font-weight: 600;
+}
+
+.scale-number {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #374151;
+  transition: all 0.3s ease;
+}
+
+.scale-label {
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-align: center;
+  line-height: 1.2;
+  transition: all 0.3s ease;
+}
+
+/* 表單導航 */
+.form-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 0;
+  border-top: 2px solid #f3f4f6;
+  margin-top: 32px;
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  padding: 14px 28px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.prev-btn {
+  background: #f3f4f6;
+  color: #374151;
+  border: 2px solid #d1d5db;
+}
+
+.prev-btn:hover:not(:disabled) {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+  transform: translateY(-2px);
+}
+
+.prev-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.next-btn {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+}
+
+.next-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
+.next-btn:disabled {
+  background: #d1d5db;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.reset-btn {
+  padding: 12px 20px;
+  background: #f59e0b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.reset-btn:hover {
+  background: #d97706;
+  transform: translateY(-1px);
+}
+
+/* 提示資訊 */
+.form-tips {
+  background: #f0f9ff;
+  border: 1px solid #bae6fd;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 20px;
+}
+
+.tip-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: #0c4a6e;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.tip-item:last-child {
+  margin-bottom: 0;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .constitution-form {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  .form-title {
+    font-size: 1.6rem;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .section-navigation {
+    gap: 6px;
+  }
+  
+  .section-tab {
+    padding: 8px 12px;
+    min-width: 60px;
+  }
+  
+  .section-number {
+    width: 24px;
+    height: 24px;
+    font-size: 0.8rem;
+  }
+  
+  .section-name {
+    font-size: 0.75rem;
+  }
+  
+  .question-item {
+    padding: 16px;
+  }
+  
+  .question-text {
+    font-size: 1rem;
+  }
+  
+  .checkbox-group {
+    grid-template-columns: 1fr;
+  }
+  
+  .scale-options {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .scale-option {
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 12px 16px;
+  }
+  
+  .form-navigation {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .nav-btn {
+    width: 100%;
+    min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .constitution-form {
+    padding: 12px;
+  }
+  
+  .form-title {
+    font-size: 1.4rem;
+  }
+  
+  .section-navigation {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  
+  .question-item {
+    padding: 12px;
+  }
+  
+  .radio-group,
+  .checkbox-group {
+    gap: 8px;
+  }
+  
+  .radio-option,
+  .checkbox-option {
+    padding: 10px 12px;
+  }
+}

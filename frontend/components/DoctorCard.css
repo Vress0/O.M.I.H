@@ -1,0 +1,642 @@
+.doctor-card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.doctor-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15);
+  transform: translateY(-2px);
+}
+
+.doctor-card.selected {
+  border-color: #10b981;
+  background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+}
+
+.doctor-card.expanded {
+  border-color: #8b5cf6;
+  box-shadow: 0 12px 35px rgba(139, 92, 246, 0.2);
+}
+
+/* 匹配度指示器 */
+.match-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #f3f4f6;
+  overflow: hidden;
+}
+
+.match-score {
+  position: absolute;
+  top: -30px;
+  right: 16px;
+  background: #1f2937;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.doctor-card:hover .match-score {
+  top: 8px;
+  opacity: 1;
+}
+
+.match-bar {
+  width: 100%;
+  height: 100%;
+  background: #f3f4f6;
+}
+
+.match-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #fbbf24, #10b981, #3b82f6);
+  transition: width 0.6s ease;
+}
+
+/* 醫師標題區域 */
+.doctor-header {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  align-items: flex-start;
+}
+
+.doctor-avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.doctor-avatar img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e5e7eb;
+}
+
+.avatar-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 3px solid #e5e7eb;
+}
+
+.online-indicator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 16px;
+  height: 16px;
+  border: 2px solid white;
+  border-radius: 50%;
+  background: white;
+  font-size: 0.6rem;
+}
+
+.doctor-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.doctor-name-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.doctor-name {
+  margin: 0;
+  color: #1f2937;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.favorite-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 4px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.favorite-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  transform: scale(1.1);
+}
+
+.favorite-btn.favorited {
+  animation: heartBeat 0.6s ease;
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.doctor-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+
+.department {
+  color: #374151;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.separator {
+  color: #9ca3af;
+  font-weight: normal;
+}
+
+.experience-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 2px 8px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+}
+
+.doctor-clinic {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  color: #6b7280;
+  font-size: 0.9rem;
+}
+
+.clinic-icon {
+  font-size: 0.8rem;
+}
+
+.clinic-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* 評分 */
+.doctor-rating {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.rating-stars {
+  display: flex;
+  gap: 2px;
+}
+
+.star {
+  font-size: 0.9rem;
+  transition: color 0.2s ease;
+}
+
+.star.full {
+  color: #fbbf24;
+}
+
+.star.half {
+  background: linear-gradient(90deg, #fbbf24 50%, #d1d5db 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.star.empty {
+  color: #d1d5db;
+}
+
+.rating-score {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.rating-count {
+  color: #6b7280;
+  font-size: 0.85rem;
+}
+
+/* 專長領域 */
+.doctor-specialties {
+  margin-bottom: 16px;
+}
+
+.specialties-title {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.specialties-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.specialty-tag {
+  background: linear-gradient(135deg, #eff6ff, #dbeafe);
+  color: #1e40af;
+  padding: 4px 10px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  border: 1px solid #bfdbfe;
+  transition: all 0.3s ease;
+}
+
+.specialty-tag:hover {
+  background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.more-specialties {
+  color: #6b7280;
+  font-size: 0.8rem;
+  font-style: italic;
+}
+
+/* 展開詳情 */
+.doctor-details {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #f3f4f6;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.doctor-details h4 {
+  color: #374151;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.doctor-details h4::before {
+  content: "▪";
+  color: #3b82f6;
+  font-weight: 900;
+}
+
+.doctor-description {
+  margin-bottom: 20px;
+}
+
+.doctor-description p {
+  color: #6b7280;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 看診時間 */
+.doctor-schedule {
+  margin-bottom: 20px;
+}
+
+.schedule-grid {
+  display: grid;
+  gap: 8px;
+}
+
+.schedule-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  border-left: 4px solid #3b82f6;
+}
+
+.schedule-day {
+  font-weight: 600;
+  color: #374151;
+  min-width: 60px;
+}
+
+.schedule-times {
+  color: #6b7280;
+  font-size: 0.9rem;
+  text-align: right;
+}
+
+/* 聯繫資訊 */
+.doctor-contact {
+  margin-bottom: 20px;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.contact-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.contact-text {
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+/* 評論 */
+.doctor-reviews {
+  margin-bottom: 20px;
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-item {
+  padding: 12px;
+  background: #f9fafb;
+  border-radius: 12px;
+  border-left: 4px solid #10b981;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.reviewer-name {
+  font-weight: 600;
+  color: #374151;
+  font-size: 0.9rem;
+}
+
+.review-rating .star {
+  font-size: 0.8rem;
+}
+
+.review-content {
+  color: #6b7280;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.review-date {
+  color: #9ca3af;
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+/* 操作按鈕 */
+.doctor-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.doctor-actions button {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.detail-btn {
+  background: #f3f4f6;
+  color: #374151;
+  border: 2px solid #d1d5db;
+}
+
+.detail-btn:hover:not(:disabled) {
+  background: #e5e7eb;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+.consult-btn {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+}
+
+.consult-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #059669, #047857);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.consult-btn.online {
+  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.consult-btn.online:hover:not(:disabled) {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+}
+
+.booking-btn {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: white;
+}
+
+.booking-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #1d4ed8, #1e40af);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.doctor-actions button:disabled {
+  background: #d1d5db !important;
+  color: #9ca3af !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #d1d5db !important;
+}
+
+/* 載入覆層 */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 16px;
+  z-index: 10;
+}
+
+.loading-spinner {
+  font-size: 2rem;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .doctor-card {
+    padding: 16px;
+    border-radius: 12px;
+  }
+  
+  .doctor-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .doctor-avatar {
+    align-self: center;
+  }
+  
+  .doctor-info {
+    width: 100%;
+  }
+  
+  .doctor-name-row {
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .doctor-title {
+    justify-content: center;
+  }
+  
+  .doctor-clinic {
+    justify-content: center;
+  }
+  
+  .doctor-rating {
+    justify-content: center;
+  }
+  
+  .specialties-tags {
+    justify-content: center;
+  }
+  
+  .schedule-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+  }
+  
+  .schedule-times {
+    text-align: center;
+  }
+  
+  .doctor-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .doctor-actions button {
+    min-width: unset;
+  }
+}
+
+@media (max-width: 480px) {
+  .doctor-card {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .doctor-avatar img,
+  .avatar-placeholder {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .avatar-placeholder {
+    font-size: 1.2rem;
+  }
+  
+  .doctor-name {
+    font-size: 1.1rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .review-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+}

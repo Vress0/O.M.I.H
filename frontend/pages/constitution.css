@@ -1,0 +1,863 @@
+/* 體質檢測頁面樣式 */
+.constitution-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.constitution-page.analyzing {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 測試容器 */
+.test-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* 結果容器 */
+.result-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 頁面標題 */
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.title-icon {
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.page-description {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 進度區域 */
+.progress-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.progress-text {
+  color: #2c3e50;
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.progress-percentage {
+  color: #667eea;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.analyzing-fill {
+  width: 100%;
+  animation: analyzing 2s ease-in-out infinite;
+}
+
+@keyframes analyzing {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+.steps-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.step-dot {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #e9ecef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: #6c757d;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.step-dot.active {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* 問卷區域 */
+.questions-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* 導航按鈕 */
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 20px 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.nav-btn {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  min-width: 120px;
+}
+
+.prev-btn {
+  background: #6c757d;
+  color: white;
+}
+
+.prev-btn:hover:not(:disabled) {
+  background: #5a6268;
+  transform: translateY(-2px);
+}
+
+.prev-btn:disabled {
+  background: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.next-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+}
+
+.next-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.next-btn:disabled {
+  background: #e9ecef;
+  color: #6c757d;
+  cursor: not-allowed;
+}
+
+.analyze-btn {
+  background: linear-gradient(45deg, #28a745, #20c997);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(40, 167, 69, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+}
+
+.nav-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.history-link {
+  background: none;
+  border: none;
+  color: #667eea;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.history-link:hover {
+  color: #764ba2;
+}
+
+/* 測試說明 */
+.test-info {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.info-card {
+  text-align: left;
+}
+
+.info-title {
+  color: #2c3e50;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.info-list {
+  color: #555;
+  line-height: 1.8;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.info-list li {
+  margin-bottom: 8px;
+}
+
+/* 分析中狀態 */
+.analyzing-content {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  padding: 50px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(15px);
+  max-width: 400px;
+}
+
+.analyzing-animation {
+  font-size: 4rem;
+  margin-bottom: 25px;
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.analyzing-title {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.analyzing-description {
+  color: #7f8c8d;
+  margin-bottom: 25px;
+  line-height: 1.6;
+}
+
+.analyzing-progress {
+  width: 100%;
+}
+
+/* 結果頁面樣式 */
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.result-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #2c3e50;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.result-actions {
+  display: flex;
+  gap: 15px;
+}
+
+.restart-btn,
+.history-btn {
+  padding: 12px 20px;
+  border: 2px solid;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+}
+
+.restart-btn {
+  border-color: #28a745;
+  color: #28a745;
+}
+
+.restart-btn:hover {
+  background: #28a745;
+  color: white;
+}
+
+.history-btn {
+  border-color: #667eea;
+  color: #667eea;
+}
+
+.history-btn:hover {
+  background: #667eea;
+  color: white;
+}
+
+.result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* 體質卡片 */
+.primary-constitution,
+.secondary-constitution {
+  display: flex;
+  justify-content: center;
+}
+
+.constitution-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+.constitution-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+}
+
+.constitution-card.primary::before {
+  background: linear-gradient(90deg, #28a745 0%, #20c997 100%);
+}
+
+.constitution-card.secondary::before {
+  background: linear-gradient(90deg, #ffc107 0%, #fd7e14 100%);
+}
+
+.constitution-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.constitution-name {
+  color: #2c3e50;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.constitution-percentage {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.constitution-card.primary .constitution-percentage {
+  background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+.constitution-card.secondary .constitution-percentage {
+  background: linear-gradient(45deg, #ffc107, #fd7e14);
+}
+
+.constitution-level {
+  color: #6c757d;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.constitution-description {
+  color: #7f8c8d;
+  line-height: 1.6;
+}
+
+/* 詳細分析 */
+.detailed-analysis {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.section-title {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.scores-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.score-item {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+  border-left: 4px solid #667eea;
+}
+
+.score-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.score-type {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.score-percentage {
+  font-weight: 700;
+  color: #667eea;
+}
+
+.score-bar {
+  width: 100%;
+  height: 6px;
+  background: #e9ecef;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.score-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  border-radius: 10px;
+  transition: width 0.8s ease;
+}
+
+.score-level {
+  color: #6c757d;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* 調理建議 */
+.recommendations {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+.recommendations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.recommendation-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 25px;
+  border-left: 4px solid #28a745;
+}
+
+.recommendation-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.recommendation-icon {
+  font-size: 1.3rem;
+}
+
+.recommendation-list {
+  color: #555;
+  line-height: 1.8;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.recommendation-list li {
+  margin-bottom: 8px;
+}
+
+.lifestyle-advice {
+  color: #555;
+  line-height: 1.8;
+  margin: 0;
+}
+
+.dietary-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.food-tag {
+  background: #e8f4f8;
+  color: #2c3e50;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid #4A90E2;
+}
+
+/* 底部操作按鈕 */
+.result-actions-bottom {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.find-doctor-btn,
+.learn-more-btn,
+.consult-ai-btn {
+  padding: 15px 30px;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1rem;
+  color: white;
+}
+
+.find-doctor-btn {
+  background: linear-gradient(45deg, #28a745, #20c997);
+}
+
+.learn-more-btn {
+  background: linear-gradient(45deg, #667eea, #764ba2);
+}
+
+.consult-ai-btn {
+  background: linear-gradient(45deg, #fd7e14, #ffc107);
+}
+
+.find-doctor-btn:hover,
+.learn-more-btn:hover,
+.consult-ai-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* 歷史記錄面板 */
+.history-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.history-panel {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  max-width: 500px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #f8f9fa;
+}
+
+.history-title {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.close-history-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #6c757d;
+  padding: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.close-history-btn:hover {
+  background: #f8f9fa;
+  color: #2c3e50;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.history-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #667eea;
+}
+
+.history-info {
+  flex: 1;
+}
+
+.history-date {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.history-constitution {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.view-result-btn {
+  background: #667eea;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.view-result-btn:hover {
+  background: #5a67d8;
+  transform: translateY(-2px);
+}
+
+.no-history {
+  text-align: center;
+  color: #6c757d;
+  padding: 40px 20px;
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+  .constitution-page {
+    padding: 15px;
+  }
+
+  .page-header {
+    padding: 25px 20px;
+    margin-bottom: 25px;
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .result-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .result-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .navigation-buttons {
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .nav-btn {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .steps-indicator {
+    gap: 10px;
+  }
+
+  .step-dot {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  .recommendations-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .scores-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .result-actions-bottom {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .find-doctor-btn,
+  .learn-more-btn,
+  .consult-ai-btn {
+    width: 200px;
+  }
+
+  .history-overlay {
+    padding: 10px;
+  }
+
+  .history-panel {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .constitution-page {
+    padding: 10px;
+  }
+
+  .page-header {
+    padding: 20px 15px;
+  }
+
+  .page-title {
+    font-size: 1.5rem;
+  }
+
+  .progress-section,
+  .questions-section,
+  .navigation-buttons,
+  .test-info,
+  .detailed-analysis,
+  .recommendations {
+    padding: 20px;
+  }
+
+  .constitution-card {
+    padding: 20px;
+  }
+
+  .constitution-header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+}
