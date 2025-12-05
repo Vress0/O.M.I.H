@@ -1,0 +1,8 @@
+{
+  "name": "O.M.I.H 東方醫智館",
+  "description": "Oriental MedIntelli Hub - 結合傳統中醫智慧與現代 AI 技術的健康管理平台。",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
