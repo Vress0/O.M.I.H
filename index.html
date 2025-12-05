@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>O.M.I.H 東方醫智館</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['"Noto Serif TC"', 'serif'],
+            },
+            colors: {
+              tcm: {
+                50: '#f4f7f5',
+                100: '#e3ebe6',
+                200: '#c5d9ce',
+                300: '#9bbfa9',
+                400: '#71a084',
+                500: '#528568',
+                600: '#3f6a52',
+                700: '#355543',
+                800: '#2d4538',
+                900: '#263a30',
+              }
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        background-color: #f4f7f5;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+</body>
+</html>

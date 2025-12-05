@@ -1,0 +1,129 @@
+import React, { useState, useRef, useEffect } from 'react';
+import { Send, User, Bot, Loader2 } from 'lucide-react';
+import { sendMessageToAI } from '../services/geminiService';
+import { ChatMessage } from '../types';
+
+export const ChatBot: React.FC = () => {
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    { role: 'model', text: '你好！我是 O.M.I.H 東方醫智館的智能健康小助理。請問今天有什麼我可以幫您的？(例如：詢問症狀、養生建議、中藥知識)' }
+  ]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const handleSend = async () => {
+    if (!input.trim() || loading) return;
+
+    const userMessage: ChatMessage = { role: 'user', text: input };
+    setMessages(prev => [...prev, userMessage]);
+    setInput('');
+    setLoading(true);
+
+    try {
+      // Convert internal ChatMessage to Gemini API history format
+      const history = messages.map(m => ({
+        role: m.role,
+        parts: [{ text: m.text }]
+      }));
+
+      const responseText = await sendMessageToAI(input, history);
+      
+      const botMessage: ChatMessage = { role: 'model', text: responseText };
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      setMessages(prev => [...prev, { role: 'model', text: "抱歉，連線發生錯誤，請稍後再試。" }]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  };
+
+  return (
+    <div className="max-w-4xl mx-auto h-[600px] bg-white rounded-2xl shadow-sm border border-stone-100 flex flex-col overflow-hidden animate-fadeIn">
+      {/* Header */}
+      <div className="p-4 bg-tcm-50 border-b border-tcm-100 flex items-center gap-3">
+        <div className="bg-tcm-100 p-2 rounded-full text-tcm-600">
+          <Bot size={24} />
+        </div>
+        <div>
+          <h2 className="font-serif text-lg text-tcm-900 font-bold">AI 健康小助理</h2>
+          <p className="text-xs text-tcm-600">東方醫智館 - 全天候為您解答中醫健康疑問</p>
+        </div>
+      </div>
+
+      {/* Messages */}
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-stone-50/50">
+        {messages.map((msg, idx) => (
+          <div 
+            key={idx} 
+            className={`flex items-start gap-3 max-w-[85%] ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
+          >
+            <div className={`
+              w-8 h-8 rounded-full flex items-center justify-center shrink-0
+              ${msg.role === 'user' ? 'bg-stone-200 text-stone-600' : 'bg-tcm-600 text-white'}
+            `}>
+              {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
+            </div>
+            <div className={`
+              p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap shadow-sm
+              ${msg.role === 'user' 
+                ? 'bg-white text-stone-800 border border-stone-200 rounded-tr-none' 
+                : 'bg-tcm-50 text-tcm-900 border border-tcm-100 rounded-tl-none'}
+            `}>
+              {msg.text}
+            </div>
+          </div>
+        ))}
+        {loading && (
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-full bg-tcm-600 text-white flex items-center justify-center shrink-0">
+              <Loader2 size={16} className="animate-spin" />
+            </div>
+            <div className="bg-tcm-50 p-3 rounded-2xl rounded-tl-none border border-tcm-100">
+              <span className="text-tcm-400 text-sm">正在思考中...</span>
+            </div>
+          </div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Input */}
+      <div className="p-4 bg-white border-t border-stone-100">
+        <div className="relative flex items-end gap-2">
+          <textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyPress}
+            placeholder="輸入您的症狀或問題..."
+            className="w-full p-3 pr-12 bg-stone-50 border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-tcm-500 focus:border-tcm-500 resize-none max-h-32 min-h-[50px]"
+            rows={1}
+          />
+          <button
+            onClick={handleSend}
+            disabled={!input.trim() || loading}
+            className="absolute right-2 bottom-2 p-2 bg-tcm-600 text-white rounded-lg hover:bg-tcm-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            <Send size={18} />
+          </button>
+        </div>
+        <p className="text-center text-xs text-stone-400 mt-2">
+          AI 回答僅供參考，不代表專業醫療診斷。
+        </p>
+      </div>
+    </div>
+  );
+};
