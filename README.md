@@ -37,10 +37,47 @@ O.M.I.H (Oriental MedIntelli Hub) 是一個創新的健康管理平台，將傳�
 ## 🚀 快速開始
 
 ### 系統要求
-- Node.js >= 16.0.0
-- npm >= 8.0.0
+- **Node.js** >= 18.0.0 (建議使用 LTS 版本)
+- **npm** >= 9.0.0 (或 **yarn** >= 1.22.0)
+- **Git** >= 2.30.0
+- 支援的瀏覽器：Chrome 90+, Firefox 88+, Safari 14+, Edge 90+
 
-### 安裝步驟
+### 環境安裝指南
+
+#### Windows 用戶
+```powershell
+# 1. 安裝 Node.js (建議使用 nvm-windows 管理版本)
+# 下載並安裝：https://nodejs.org/en/download/
+# 或使用 Chocolatey
+choco install nodejs
+
+# 2. 驗證安裝
+node --version
+npm --version
+```
+
+#### macOS 用戶
+```bash
+# 使用 Homebrew 安裝
+brew install node
+
+# 或使用 nvm 管理版本
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+nvm install --lts
+nvm use --lts
+```
+
+#### Linux 用戶 (Ubuntu/Debian)
+```bash
+# 使用 NodeSource 安裝最新版本
+curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# 或使用 snap
+sudo snap install node --classic
+```
+
+### 專案安裝步驟
 
 1. **複製專案**
 ```bash
@@ -48,24 +85,88 @@ git clone https://github.com/Vress0/O.M.I.H.git
 cd O.M.I.H
 ```
 
-2. **安裝依賴**
+2. **安裝依賴套件**
 ```bash
+# 使用 npm (推薦)
 npm install
+
+# 或使用 yarn
+yarn install
 ```
 
-3. **配置環境變數**
-創建 `.env` 文件並添加必要的 API 金鑰：
-```env
-VITE_GEMINI_API_KEY=your_gemini_api_key_here
-```
+3. **設定環境變數**
 
-4. **啟動開發伺服器**
+   **方法一：使用範例檔案**
+   ```bash
+   # 複製範例檔案
+   cp .env.example .env.local
+   
+   # 編輯 .env.local 並填入您的 API 金鑰
+   # Windows 用戶可以使用 notepad .env.local
+   # macOS/Linux 用戶可以使用 nano .env.local
+   ```
+
+   **方法二：手動創建**
+   在專案根目錄創建 `.env.local` 檔案，內容如下：
+   ```env
+   # Google Gemini AI API Key
+   VITE_API_KEY=your_gemini_api_key_here
+   
+   # 開發環境設定
+   NODE_ENV=development
+   ```
+
+4. **取得 Gemini API 金鑰**
+   - 前往 [Google AI Studio](https://makersuite.google.com/app/apikey)
+   - 登入您的 Google 帳戶
+   - 點擊「Create API Key」
+   - 複製生成的 API 金鑰並貼到 `.env.local` 檔案中
+
+5. **啟動開發伺服器**
 ```bash
 npm run dev
 ```
 
-5. **訪問應用程式**
-打開瀏覽器並前往 `http://localhost:5173`
+6. **訪問應用程式**
+   - 開啟瀏覽器並前往 `http://localhost:3000`
+   - 如果看到 O.M.I.H 東方醫智館首頁，表示安裝成功！
+
+### 常見問題排解
+
+#### 權限問題 (Windows)
+```powershell
+# 如果遇到執行政策錯誤
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+
+#### Node.js 版本問題
+```bash
+# 檢查當前版本
+node --version
+npm --version
+
+# 如果版本過舊，請更新 Node.js
+# 或使用 nvm 切換版本
+nvm install 18
+nvm use 18
+```
+
+#### 網路連線問題
+```bash
+# 如果 npm install 失敗，嘗試使用不同鏡像源
+npm config set registry https://registry.npmmirror.com/
+npm install
+
+# 或清除 npm 快取
+npm cache clean --force
+```
+
+#### 埠號衝突
+```bash
+# 如果 3000 埠被占用，專案會自動使用下一個可用埠號
+# 您也可以手動指定埠號
+npm run dev -- --port 5173
+```
 
 ### 構建生產版本
 ```bash
