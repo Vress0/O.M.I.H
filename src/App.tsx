@@ -8,12 +8,22 @@ import { FindDoctor } from './components/FindDoctor';
 import { KnowledgeBase } from './components/KnowledgeBase';
 import { Leaf, Activity, Camera, Palette, MessageCircle, ClipboardCheck, BookOpen, User, MapPin } from 'lucide-react';
 
-// 開場動畫元件
+// 開場動畫元件 - Alicia Style 淡出過場
 const IntroOverlay: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
+  const [isEnding, setIsEnding] = useState(false);
+
+  const handleFinish = () => {
+    setIsEnding(true);
+    // 等待動畫完成後再關閉
+    setTimeout(onFinish, 500);
+  };
+
   return (
     <div
-      className="fixed inset-0 z-[100] bg-black flex items-center justify-center cursor-pointer"
-      onDoubleClick={onFinish}
+      className={`fixed inset-0 z-[100] bg-black flex items-center justify-center cursor-pointer transition-opacity duration-500 ${
+        isEnding ? 'opacity-0' : 'opacity-100'
+      }`}
+      onDoubleClick={handleFinish}
     >
       <video
         src="/opening.mp4"
@@ -21,9 +31,9 @@ const IntroOverlay: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
         muted
         playsInline
         className="w-full h-full object-cover"
-        onEnded={onFinish}
+        onEnded={handleFinish}
       />
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 text-white text-xs md:text-sm px-4 py-2 rounded-full">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 text-white text-xs md:text-sm px-4 py-2 rounded-full font-serif font-light">
         雙擊畫面即可跳過開場動畫
       </div>
     </div>

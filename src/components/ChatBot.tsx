@@ -53,36 +53,36 @@ export const ChatBot: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto h-[600px] bg-white rounded-2xl shadow-sm border border-stone-100 flex flex-col overflow-hidden animate-fadeIn">
-      {/* Header */}
-      <div className="p-4 bg-tcm-50 border-b border-tcm-100 flex items-center gap-3">
-        <div className="bg-tcm-100 p-2 rounded-full text-tcm-600">
+    <div className="max-w-4xl mx-auto h-[600px] bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-pink-200/50 flex flex-col overflow-hidden animate-fadeIn">
+      {/* Header - Alicia Style */}
+      <div className="p-4 bg-gradient-to-r from-pink-100/50 via-purple-100/50 to-pink-100/50 border-b border-pink-200/50 flex items-center gap-3">
+        <div className="bg-gradient-to-br from-pink-200 to-purple-200 p-2 rounded-full text-pink-700">
           <Bot size={24} />
         </div>
         <div>
-          <h2 className="font-serif text-lg text-tcm-900 font-bold">AI 健康小助理</h2>
-          <p className="text-xs text-tcm-600">東方醫智館 - 全天候為您解答中醫健康疑問</p>
+          <h2 className="font-serif text-lg bg-gradient-to-r from-pink-700 to-purple-700 bg-clip-text text-transparent font-light">AI 健康小助理</h2>
+          <p className="text-xs text-slate-600 font-light">東方醫智館 - 全天候為您解答中醫健康疑問</p>
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-stone-50/50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-slate-50/50 to-slate-50/30">
         {messages.map((msg, idx) => (
           <div 
             key={idx} 
-            className={`flex items-start gap-3 max-w-[85%] ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
+            className={`flex items-start gap-3 max-w-[85%] animate-fadeIn ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
           >
             <div className={`
               w-8 h-8 rounded-full flex items-center justify-center shrink-0
-              ${msg.role === 'user' ? 'bg-stone-200 text-stone-600' : 'bg-tcm-600 text-white'}
+              ${msg.role === 'user' ? 'bg-gradient-to-br from-slate-300 to-slate-400 text-white' : 'bg-gradient-to-br from-pink-500 to-purple-500 text-white'}
             `}>
               {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
             </div>
             <div className={`
-              p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap shadow-sm
+              p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap shadow-sm backdrop-blur-sm
               ${msg.role === 'user' 
-                ? 'bg-white text-stone-800 border border-stone-200 rounded-tr-none' 
-                : 'bg-tcm-50 text-tcm-900 border border-tcm-100 rounded-tl-none'}
+                ? 'bg-white/80 text-slate-800 border border-slate-200 rounded-tr-none' 
+                : 'bg-pink-100/60 text-slate-800 border border-pink-200/50 rounded-tl-none'}
             `}>
               {msg.text}
             </div>
