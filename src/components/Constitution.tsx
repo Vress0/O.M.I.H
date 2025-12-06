@@ -22,16 +22,29 @@ export const Constitution: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-    if (!Object.values(data).some(v => v)) return; // Simple validation
+    // 檢查是否至少填寫了一些基本資訊
+    const filledFields = Object.values(data).filter(v => v.trim()).length;
+    if (filledFields < 1) {
+      alert("請至少填寫一個欄位以進行體質分析");
+      return;
+    }
     
     setLoading(true);
     try {
       const jsonStr = await analyzeConstitution(data);
       const parsed = JSON.parse(jsonStr);
+      
+      // 驗證回應內容
+      if (!parsed.type || !parsed.description || !parsed.advice) {
+        throw new Error("分析結果格式錯誤");
+      }
+      
       setResult(parsed);
       setStep('result');
-    } catch (e) {
-      alert("分析失敗，請重試");
+    } catch (error: any) {
+      console.error("體質分析錯誤:", error);
+      const errorMessage = error.message || "分析失敗，請重試";
+      alert(`${errorMessage}\n\n請確認：\n1. 網路連線正常\n2. 已填寫必要資訊\n3. 稍後再試`);
     } finally {
       setLoading(false);
     }
