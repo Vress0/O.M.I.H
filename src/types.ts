@@ -5,6 +5,7 @@ export enum AppMode {
   Analyze = 'ANALYZE',
   Edit = 'EDIT',
   FindDoctor = 'FIND_DOCTOR',
+  Secret = 'SECRET',
   KnowledgeBase = 'KNOWLEDGE_BASE'
 }
 
