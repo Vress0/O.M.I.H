@@ -211,9 +211,43 @@ export const KnowledgeBase: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4">
+      {loading && <LoadingOverlay />}
       {view === 'home' && renderHome()}
       {view === 'list' && renderList()}
       {view === 'detail' && renderDetail()}
     </div>
   );
 };
+
+// 艾莉西亞風格 Loading Overlay 元件
+const LoadingOverlay: React.FC = () => (
+  <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center pointer-events-auto">
+    <div className="bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl border border-pink-100 p-12 text-center space-y-6 max-w-sm mx-4">
+      {/* 旋轉圈圈 */}
+      <div className="flex justify-center">
+        <div className="relative">
+          {/* 外層漸層光環 */}
+          <div className="absolute inset-0 bg-gradient-to-r from-pink-300/40 via-purple-300/40 to-pink-300/40 rounded-full blur-lg animate-pulse"></div>
+          
+          {/* 旋轉圈圈 */}
+          <div className="relative h-16 w-16 rounded-full border-4 border-pink-200 border-t-pink-500 border-r-purple-500 animate-spin"></div>
+        </div>
+      </div>
+
+      {/* 提示文字 */}
+      <h3 className="text-xl font-serif font-light text-pink-700">
+        艾莉正在為你翻找中醫典籍，請稍候…
+      </h3>
+
+      {/* 跳動光點 */}
+      <div className="flex justify-center items-center gap-3 h-6">
+        <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+        <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+      </div>
+
+      {/* 底部提示 */}
+      <p className="text-xs text-slate-500 font-light">資料加載中，請勿關閉頁面...</p>
+    </div>
+  </div>
+);
