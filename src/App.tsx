@@ -8,9 +8,31 @@ import { FindDoctor } from './components/FindDoctor';
 import { KnowledgeBase } from './components/KnowledgeBase';
 import { Leaf, Activity, Camera, Palette, MessageCircle, ClipboardCheck, BookOpen, User, MapPin } from 'lucide-react';
 
+
+const IntroOverlay: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
+  return (
+    <div
+      className="fixed inset-0 z-[100] bg-black flex items-center justify-center cursor-pointer"
+      onDoubleClick={onFinish} // 🔹雙擊任意地方就跳過
+    >
+      <video
+         src="/opening.mp4"
+        autoPlay
+        muted          // 🔴 一定要加：不然瀏覽器會擋自動播放
+        playsInline    // 🔵 在手機 / 部分瀏覽器上避免強制全螢幕
+      className="w-full h-full object-cover"
+   onEnded={onFinish}
+    />
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/60 text-white text-xs md:text-sm px-4 py-2 rounded-full">
+        雙擊畫面即可跳過開場動畫
+      </div>
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   const [mode, setMode] = useState<AppMode>(AppMode.Home);
-
+  const [showIntro, setShowIntro] = useState(true); 
   const renderContent = () => {
     switch (mode) {
       case AppMode.Chat:
@@ -121,6 +143,10 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-stone-50 font-sans text-stone-800 flex flex-col">
+      {/* Intro Overlay */}
+        {showIntro && (
+        <IntroOverlay onFinish={() => setShowIntro(false)} />
+        )}
       {/* Header */}
       <header className="bg-white border-b border-tcm-100 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
