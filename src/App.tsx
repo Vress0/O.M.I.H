@@ -142,11 +142,28 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-stone-50 font-sans text-stone-800 flex flex-col">
-      {/* Intro Overlay */}
-      {showIntro && (
-        <IntroOverlay onFinish={() => setShowIntro(false)} />
-      )}
+    <div className="relative min-h-screen bg-gradient-to-b from-rose-50 via-purple-50 to-indigo-50 font-sans text-stone-800 flex flex-col overflow-hidden">
+      {/* 光暈背景裝飾層 */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+        {/* 左上角玫瑰粉光暈 */}
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-rose-300/30 rounded-full blur-3xl opacity-70"></div>
+        
+        {/* 右下角淡紫藍光暈 */}
+        <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-indigo-300/25 rounded-full blur-3xl opacity-60"></div>
+        
+        {/* 中間偏右上的淡紫光暈 */}
+        <div className="absolute top-1/4 right-1/3 w-72 h-72 bg-fuchsia-200/25 rounded-full blur-3xl opacity-50"></div>
+        
+        {/* 中間下方的淡藍光暈 */}
+        <div className="absolute bottom-1/4 left-1/4 w-64 h-64 bg-purple-200/20 rounded-full blur-3xl opacity-40"></div>
+      </div>
+
+      {/* 主要內容容器 */}
+      <div className="relative z-0 flex flex-col flex-1">
+        {/* Intro Overlay */}
+        {showIntro && (
+          <IntroOverlay onFinish={() => setShowIntro(false)} />
+        )}
       {/* Header */}
       <header className="bg-white border-b border-tcm-100 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
@@ -210,6 +227,7 @@ const App: React.FC = () => {
           </p>
         </div>
       </footer>
+      </div>
     </div>
   );
 };
