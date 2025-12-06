@@ -236,7 +236,7 @@ const LoadingOverlay: React.FC = () => (
 
       {/* 提示文字 */}
       <h3 className="text-xl font-serif font-light text-pink-700">
-        艾莉正在為你翻找中醫典籍，請稍候…
+        正在為你翻找中醫典籍，請稍候…
       </h3>
 
       {/* 跳動光點 */}
