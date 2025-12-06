@@ -2,6 +2,12 @@ import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
 import { DoctorSearchResult, GroundingPlace, KnowledgeItem } from "../types";
 
 const apiKey = import.meta.env.VITE_API_KEY || '';
+// 驗證 API 金鑰是否存在
+if (!apiKey) {
+  console.error('⚠️ VITE_API_KEY 未設定！請檢查 .env.local 檔案');
+} else {
+  console.log('✅ API 金鑰已載入 (長度:', apiKey.length, ')');
+}
 const ai = new GoogleGenAI({ apiKey });
 
 /**
@@ -113,40 +119,63 @@ export const sendMessageToAI = async (message: string, history: {role: string, p
 };
 
 /**
- * Analyzes body constitution based on user input using Gemini 3 Pro Preview.
+ * Analyzes body constitution based on user input using Gemini Flash.
  */
 export const analyzeConstitution = async (data: any): Promise<string> => {
   try {
-    const prompt = `
-      請根據以下用戶描述，進行詳細的中醫體質辨識分析：
-      - 精力狀況: ${data.energy}
-      - 冷熱偏好: ${data.temperature}
-      - 睡眠品質: ${data.sleep}
-      - 情緒狀態: ${data.mood}
-      - 食慾與消化: ${data.appetite}
-      - 其他症狀: ${data.other}
+    const prompt = `請根據以下用戶描述，進行詳細的中醫體質辨識分析：
+- 精力狀況: ${data.energy || '未填寫'}
+- 冷熱偏好: ${data.temperature || '未填寫'}
+- 睡眠品質: ${data.sleep || '未填寫'}
+- 情緒狀態: ${data.mood || '未填寫'}
+- 食慾與消化: ${data.appetite || '未填寫'}
+- 其他症狀: ${data.other || '無'}
 
-      請判斷用戶最可能屬於中醫九大體質中的哪一種（如平和質、氣虛質、陽虛質、陰虛質、痰濕質、濕熱質、血瘀質、氣鬱質、特稟質）。
-      請回傳 JSON 格式，不要使用 Markdown code block，格式如下：
-      {
-        "type": "體質名稱",
-        "description": "體質詳細說明...",
-        "advice": "針對此體質的養生建議（飲食、運動、作息）..."
-      }
-    `;
+請判斷用戶最可能屬於中醫九大體質中的哪一種（平和質、氣虛質、陽虛質、陰虛質、痰濕質、濕熱質、血瘀質、氣鬱質、特稟質）。
+
+請嚴格按照以下JSON格式回傳，不要包含任何其他文字或markdown標記：
+{
+  "type": "體質名稱",
+  "description": "詳細的體質特徵說明，包含此體質的典型表現和特點",
+  "advice": "具體的養生建議，包含飲食調理、運動方式、生活作息等實用建議"
+}`;
 
     const response = await ai.models.generateContent({
-      model: 'gemini-3-pro-preview',
+      model: 'gemini-2.5-flash',
       contents: prompt,
       config: {
-        responseMimeType: "application/json"
+        responseMimeType: "application/json",
+        temperature: 0.7
       }
     });
 
-    return response.text || "{}";
-  } catch (error) {
+    const responseText = response.text;
+    if (!responseText) {
+      throw new Error("API 回應為空");
+    }
+
+    // 清理可能的 markdown 標記
+    const cleanedText = responseText.replace(/```json\n?|```\n?/g, '').trim();
+    
+    // 驗證 JSON 格式
+    try {
+      const parsed = JSON.parse(cleanedText);
+      if (!parsed.type || !parsed.description || !parsed.advice) {
+        throw new Error("回應格式不完整");
+      }
+      return cleanedText;
+    } catch (parseError) {
+      console.error("JSON 解析失敗:", parseError, "原始回應:", responseText);
+      // 如果 JSON 解析失敗，返回預設格式
+      return JSON.stringify({
+        type: "體質分析中",
+        description: "系統正在分析您的體質特徵，請稍後再試或聯絡客服協助。",
+        advice: "建議保持規律作息，均衡飲食，適量運動。如有不適請諮詢專業中醫師。"
+      });
+    }
+  } catch (error: any) {
     console.error("Constitution analysis failed:", error);
-    throw new Error("體質分析失敗。");
+    throw new Error(`體質分析失敗：${error.message || '請檢查網路連線或稍後再試'}`);
   }
 };
 
