@@ -23,7 +23,7 @@ export const Constitution: React.FC = () => {
 
   const handleSubmit = async () => {
     // 檢查是否至少填寫了一些基本資訊
-    const filledFields = Object.values(data).filter(v => v.trim()).length;
+    const filledFields = Object.values(data).filter(v => typeof v === 'string' && v.trim()).length;
     if (filledFields < 1) {
       alert("請至少填寫一個欄位以進行體質分析");
       return;
