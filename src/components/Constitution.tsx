@@ -23,7 +23,7 @@ export const Constitution: React.FC = () => {
 
   const handleSubmit = async () => {
     // 檢查是否至少填寫了一些基本資訊
-    const filledFields = Object.values(data).filter(v => v.trim()).length;
+    const filledFields = Object.values(data).filter(v => typeof v === 'string' && v.trim()).length;
     if (filledFields < 1) {
       alert("請至少填寫一個欄位以進行體質分析");
       return;
@@ -51,10 +51,10 @@ export const Constitution: React.FC = () => {
   if (step === 'result' && result) {
     return (
       <div className="max-w-3xl mx-auto animate-fadeIn">
-        <div className="bg-white rounded-2xl shadow-lg border border-tcm-100 overflow-hidden">
-          <div className="bg-tcm-600 p-8 text-center text-white">
-            <h2 className="text-3xl font-serif font-bold mb-2">您的體質是：{result.type}</h2>
-            <div className="w-16 h-1 bg-tcm-300 mx-auto rounded-full"></div>
+        <div className="bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-pink-200/50 overflow-hidden">
+          <div className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 p-8 text-center text-white">
+            <h2 className="text-3xl font-serif font-light mb-4">您的體質是：{result.type}</h2>
+            <div className="w-20 h-1 bg-pink-200/60 mx-auto rounded-full"></div>
           </div>
           
           <div className="p-8 space-y-8">
@@ -91,10 +91,16 @@ export const Constitution: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="bg-white rounded-2xl p-8 shadow-sm border border-stone-100">
-        <div className="text-center mb-8">
-          <h2 className="text-2xl font-serif text-tcm-900 font-bold mb-2">中醫九大體質檢測</h2>
-          <p className="text-stone-500">請根據您最近三個月的身體狀況填寫，AI 將為您分析體質類型。</p>
+      <div className="bg-white/40 backdrop-blur-xl rounded-2xl p-8 shadow-sm border border-pink-200/50">
+        <div className="text-center mb-10 space-y-4">
+          <div className="flex justify-center">
+            <div className="h-1 w-16 bg-gradient-to-r from-pink-200 to-purple-200 rounded-full"></div>
+          </div>
+          <h2 className="text-3xl font-serif font-light bg-gradient-to-r from-pink-700 to-purple-700 bg-clip-text text-transparent">中醫九大體質檢測</h2>
+          <div className="flex justify-center">
+            <div className="h-1 w-16 bg-gradient-to-r from-pink-200 to-purple-200 rounded-full"></div>
+          </div>
+          <p className="text-slate-600 leading-relaxed font-light">請根據您最近三個月的身體狀況填寫，AI 將為您分析體質類型。</p>
         </div>
 
         <div className="space-y-6">

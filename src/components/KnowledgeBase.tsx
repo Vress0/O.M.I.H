@@ -67,21 +67,29 @@ export const KnowledgeBase: React.FC = () => {
   const renderHome = () => (
     <div className="space-y-12 animate-fadeIn">
       <div className="text-center space-y-6 py-8">
-        <h2 className="text-3xl md:text-4xl font-serif font-bold text-tcm-900">中醫智慧知識庫</h2>
-        <p className="text-stone-500 max-w-2xl mx-auto">
+        <div className="space-y-3">
+          <div className="flex justify-center">
+            <div className="h-1 w-16 bg-gradient-to-r from-pink-200 via-purple-200 to-pink-200 rounded-full"></div>
+          </div>
+          <h2 className="text-4xl md:text-5xl font-serif font-light bg-gradient-to-r from-pink-700 via-purple-700 to-pink-700 bg-clip-text text-transparent">中醫智慧知識庫</h2>
+          <div className="flex justify-center">
+            <div className="h-1 w-16 bg-gradient-to-r from-pink-200 via-purple-200 to-pink-200 rounded-full"></div>
+          </div>
+        </div>
+        <p className="text-slate-600 max-w-2xl mx-auto leading-relaxed font-light">
           探索千年傳承的醫學智慧，從本草經絡到現代養生，您的隨身中醫百科全書。
         </p>
         
         <div className="max-w-xl mx-auto relative">
           <input 
             type="text" 
-            className="w-full pl-12 pr-4 py-4 rounded-full bg-white border border-stone-200 shadow-sm focus:ring-2 focus:ring-tcm-500 focus:outline-none text-lg text-stone-800 placeholder-stone-400"
+            className="w-full pl-12 pr-4 py-4 rounded-full bg-white/70 backdrop-blur-sm border border-pink-200/50 shadow-sm focus:ring-2 focus:ring-pink-400 focus:outline-none text-lg text-slate-800 placeholder-slate-400"
             placeholder="搜尋藥材、穴位、病症..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSearch(searchQuery)}
           />
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400" size={24} />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-pink-400" size={24} />
           <Button 
             className="absolute right-2 top-2 rounded-full px-6" 
             onClick={() => handleSearch(searchQuery)}
@@ -97,7 +105,7 @@ export const KnowledgeBase: React.FC = () => {
           <div 
             key={cat.id}
             onClick={() => handleSearch('', cat.id)}
-            className="bg-white p-6 rounded-2xl shadow-sm border border-stone-100 hover:shadow-md hover:border-tcm-300 transition-all cursor-pointer flex items-center gap-6 group"
+            className="bg-white/40 backdrop-blur-xl p-6 rounded-2xl shadow-sm border border-pink-200/50 hover:shadow-lg hover:scale-105 hover:bg-white/60 transition-all cursor-pointer flex items-center gap-6 group"
           >
             <div className={`w-16 h-16 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 ${cat.color}`}>
               {cat.icon}
@@ -203,9 +211,43 @@ export const KnowledgeBase: React.FC = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4">
+      {loading && <LoadingOverlay />}
       {view === 'home' && renderHome()}
       {view === 'list' && renderList()}
       {view === 'detail' && renderDetail()}
     </div>
   );
 };
+
+// 艾莉西亞風格 Loading Overlay 元件
+const LoadingOverlay: React.FC = () => (
+  <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center pointer-events-auto">
+    <div className="bg-white/80 backdrop-blur-md rounded-3xl shadow-2xl border border-pink-100 p-12 text-center space-y-6 max-w-sm mx-4">
+      {/* 旋轉圈圈 */}
+      <div className="flex justify-center">
+        <div className="relative">
+          {/* 外層漸層光環 */}
+          <div className="absolute inset-0 bg-gradient-to-r from-pink-300/40 via-purple-300/40 to-pink-300/40 rounded-full blur-lg animate-pulse"></div>
+          
+          {/* 旋轉圈圈 */}
+          <div className="relative h-16 w-16 rounded-full border-4 border-pink-200 border-t-pink-500 border-r-purple-500 animate-spin"></div>
+        </div>
+      </div>
+
+      {/* 提示文字 */}
+      <h3 className="text-xl font-serif font-light text-pink-700">
+        正在為你翻找中醫典籍，請稍候…
+      </h3>
+
+      {/* 跳動光點 */}
+      <div className="flex justify-center items-center gap-3 h-6">
+        <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0s' }}></div>
+        <div className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '0.15s' }}></div>
+        <div className="w-2 h-2 bg-indigo-400 rounded-full animate-bounce" style={{ animationDelay: '0.3s' }}></div>
+      </div>
+
+      {/* 底部提示 */}
+      <p className="text-xs text-slate-500 font-light">資料加載中，請勿關閉頁面...</p>
+    </div>
+  </div>
+);
