@@ -2,14 +2,12 @@ import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
 import { DoctorSearchResult, GroundingPlace, KnowledgeItem } from "../types";
 
 const apiKey = import.meta.env.VITE_API_KEY || '';
-
 // 驗證 API 金鑰是否存在
 if (!apiKey) {
   console.error('⚠️ VITE_API_KEY 未設定！請檢查 .env.local 檔案');
 } else {
   console.log('✅ API 金鑰已載入 (長度:', apiKey.length, ')');
 }
-
 const ai = new GoogleGenAI({ apiKey });
 
 /**

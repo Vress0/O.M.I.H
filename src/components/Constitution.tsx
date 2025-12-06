@@ -33,12 +33,10 @@ export const Constitution: React.FC = () => {
     try {
       const jsonStr = await analyzeConstitution(data);
       const parsed = JSON.parse(jsonStr);
-      
       // 驗證回應內容
       if (!parsed.type || !parsed.description || !parsed.advice) {
         throw new Error("分析結果格式錯誤");
       }
-      
       setResult(parsed);
       setStep('result');
     } catch (error: any) {
