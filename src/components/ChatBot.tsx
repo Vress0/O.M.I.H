@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Send, User, Bot, Loader2 } from 'lucide-react';
+import { DecoratedWrapper } from './DecoratedWrapper';
 import { sendMessageToAI } from '../services/geminiService';
 import { ChatMessage } from '../types';
 
@@ -53,9 +54,10 @@ export const ChatBot: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto h-[600px] bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-pink-200/50 flex flex-col overflow-hidden animate-fadeIn">
-      {/* Header - Alicia Style */}
-      <div className="p-4 bg-gradient-to-r from-pink-100/50 via-purple-100/50 to-pink-100/50 border-b border-pink-200/50 flex items-center gap-3">
+    <div className="max-w-4xl mx-auto animate-fadeIn">
+      <DecoratedWrapper className="h-[600px] bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-pink-200/50 flex flex-col overflow-hidden" imgOpacity={0.06}>
+        {/* Header - Alicia Style */}
+        <div className="p-4 bg-gradient-to-r from-pink-100/50 via-purple-100/50 to-pink-100/50 border-b border-pink-200/50 flex items-center gap-3">
         <div className="bg-gradient-to-br from-pink-200 to-purple-200 p-2 rounded-full text-pink-700">
           <Bot size={24} />
         </div>
@@ -101,9 +103,9 @@ export const ChatBot: React.FC = () => {
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input */}
-      <div className="p-4 bg-white border-t border-stone-100">
-        <div className="relative flex items-end gap-2">
+        {/* Input */}
+        <div className="p-4 bg-white border-t border-stone-100">
+          <div className="relative flex items-end gap-2">
           <textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -123,7 +125,8 @@ export const ChatBot: React.FC = () => {
         <p className="text-center text-xs text-stone-400 mt-2">
           AI 回答僅供參考，不代表專業醫療診斷。
         </p>
-      </div>
+        </div>
+      </DecoratedWrapper>
     </div>
   );
 };

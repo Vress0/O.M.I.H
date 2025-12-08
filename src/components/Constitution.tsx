@@ -3,6 +3,7 @@ import { Button } from './Button';
 import { analyzeConstitution } from '../services/geminiService';
 import { ConstitutionData } from '../types';
 import { FileText, CheckCircle, Activity, Thermometer, Moon, Smile, Utensils } from 'lucide-react';
+import { DecoratedWrapper } from './DecoratedWrapper';
 
 export const Constitution: React.FC = () => {
   const [step, setStep] = useState<'form' | 'result'>('form');
@@ -51,7 +52,7 @@ export const Constitution: React.FC = () => {
   if (step === 'result' && result) {
     return (
       <div className="max-w-3xl mx-auto animate-fadeIn">
-        <div className="bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-pink-200/50 overflow-hidden">
+        <DecoratedWrapper className="bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-pink-200/50 overflow-hidden" imgOpacity={0.06}>
           <div className="bg-gradient-to-r from-pink-500 via-purple-500 to-pink-500 p-8 text-center text-white">
             <h2 className="text-3xl font-serif font-light mb-4">您的體質是：{result.type}</h2>
             <div className="w-20 h-1 bg-pink-200/60 mx-auto rounded-full"></div>
@@ -84,14 +85,14 @@ export const Constitution: React.FC = () => {
               重新測驗
             </Button>
           </div>
-        </div>
+        </DecoratedWrapper>
       </div>
     );
   }
 
   return (
     <div className="max-w-3xl mx-auto">
-      <div className="bg-white/40 backdrop-blur-xl rounded-2xl p-8 shadow-sm border border-pink-200/50">
+      <DecoratedWrapper className="bg-white/40 backdrop-blur-xl rounded-2xl p-8 shadow-sm border border-pink-200/50" imgOpacity={0.06}>
         <div className="text-center mb-10 space-y-4">
           <div className="flex justify-center">
             <div className="h-1 w-16 bg-gradient-to-r from-pink-200 to-purple-200 rounded-full"></div>
@@ -195,7 +196,7 @@ export const Constitution: React.FC = () => {
             {loading ? 'AI 分析中...' : '開始體質分析'}
           </Button>
         </div>
-      </div>
+      </DecoratedWrapper>
     </div>
   );
 };

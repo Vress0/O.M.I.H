@@ -50,87 +50,108 @@ const HomePage: React.FC<{ navigate: (path: string) => void }> = ({ navigate }) 
         
         {/* Decorative blur ball */}
         <div className="absolute -top-20 -left-20 w-60 h-60 bg-pink-300/20 rounded-full blur-3xl pointer-events-none"></div>
-        
-        <h1 className="text-5xl md:text-6xl font-serif font-light bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-6 relative z-10">
-          O.M.I.H 東方醫智館
-        </h1>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-10 relative z-10 leading-relaxed font-light">
-          Oriental MedIntelli Hub - 融合千年傳統智慧與現代 AI 科技，為您打造個人化的全方位健康管理方案。
-        </p>
-        <button 
-          onClick={() => navigate('/chat')}
-          className="bg-gradient-to-r from-pink-300 to-purple-300 text-white px-10 py-4 rounded-full font-medium hover:scale-105 hover:shadow-lg hover:shadow-pink-300/50 transition-all duration-300 relative z-10 font-serif font-light"
-        >
-          開始健康諮詢
-        </button>
+
+        {/* Dreamy sakura atmosphere */}
+        <img
+          src="/images-removebg-preview.png"
+          alt="sakura atmosphere"
+          className="pointer-events-none select-none absolute top-0 left-0 w-[65%] opacity-25 blur-sm z-0 drop-shadow-[0_0_18px_rgba(255,150,255,0.45)] filter brightness-110 saturate-115 mix-blend-screen"
+        />
+
+        <div className="relative z-10 space-y-6">
+          <h1 className="text-5xl md:text-6xl font-serif font-light bg-gradient-to-r from-pink-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            O.M.I.H 東方醫智館
+          </h1>
+          <p className="text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed font-light">
+            Oriental MedIntelli Hub - 融合千年傳統智慧與現代 AI 科技，為您打造個人化的全方位健康管理方案。
+          </p>
+          <button 
+            onClick={() => navigate('/chat')}
+            className="bg-gradient-to-r from-pink-300 to-purple-300 text-white px-10 py-4 rounded-full font-medium hover:scale-105 hover:shadow-lg hover:shadow-pink-300/50 transition-all duration-300 font-serif font-light"
+          >
+            開始健康諮詢
+          </button>
+        </div>
       </div>
 
       {/* Feature Grid - Glass Morphism */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         <div 
           onClick={() => navigate('/chat')}
-          className="bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-pink-200/50 hover:scale-105 hover:shadow-lg hover:shadow-pink-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-pink-200/50 hover:scale-105 hover:shadow-lg hover:shadow-pink-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
-          <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 text-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <MessageCircle size={24} />
+          <div className="relative z-10">
+            <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 text-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <MessageCircle size={24} />
+            </div>
+            <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">AI 健康小助理</h3>
+            <p className="text-slate-600 text-sm leading-relaxed">24/7 智能問答，即時分析症狀並提供養生建議。</p>
           </div>
-          <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">AI 健康小助理</h3>
-          <p className="text-slate-600 text-sm leading-relaxed">24/7 智能問答，即時分析症狀並提供養生建議。</p>
         </div>
 
         <div 
           onClick={() => navigate('/knowledge-base')}
-          className="bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-purple-200/50 hover:scale-105 hover:shadow-lg hover:shadow-purple-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-purple-200/50 hover:scale-105 hover:shadow-lg hover:shadow-purple-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
-          <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-indigo-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <BookOpen size={24} />
+          <div className="relative z-10">
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-indigo-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <BookOpen size={24} />
+            </div>
+            <h3 className="text-lg font-serif font-medium text-purple-700 mb-2">中醫知識庫</h3>
+            <p className="text-slate-600 text-sm leading-relaxed">包含中藥、方劑、穴位與養生的結構化百科全書。</p>
           </div>
-          <h3 className="text-lg font-serif font-medium text-purple-700 mb-2">中醫知識庫</h3>
-          <p className="text-slate-600 text-sm leading-relaxed">包含中藥、方劑、穴位與養生的結構化百科全書。</p>
         </div>
 
         <div 
           onClick={() => navigate('/constitution')}
-          className="bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-pink-200/50 hover:scale-105 hover:shadow-lg hover:shadow-pink-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-pink-200/50 hover:scale-105 hover:shadow-lg hover:shadow-pink-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
-          <div className="w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-100 text-rose-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <ClipboardCheck size={24} />
+          <div className="relative z-10">
+            <div className="w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-100 text-rose-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <ClipboardCheck size={24} />
+            </div>
+            <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">體質檢測</h3>
+            <p className="text-slate-600 text-sm leading-relaxed">分析九大體質，提供專屬的飲食與調理方案。</p>
           </div>
-          <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">體質檢測</h3>
-          <p className="text-slate-600 text-sm leading-relaxed">分析九大體質，提供專屬的飲食與調理方案。</p>
         </div>
 
         <div 
           onClick={() => navigate('/find-doctor')}
-          className="bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-red-200/50 hover:scale-105 hover:shadow-lg hover:shadow-red-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-red-200/50 hover:scale-105 hover:shadow-lg hover:shadow-red-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
-          <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-pink-100 text-red-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <MapPin size={24} />
+          <div className="relative z-10">
+            <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-pink-100 text-red-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <MapPin size={24} />
+            </div>
+            <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">尋找醫師</h3>
+            <p className="text-slate-600 text-sm leading-relaxed">根據地區與專科，尋找最適合您的中醫專家。</p>
           </div>
-          <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">尋找醫師</h3>
-          <p className="text-slate-600 text-sm leading-relaxed">根據地區與專科，尋找最適合您的中醫專家。</p>
         </div>
 
         <div 
           onClick={() => navigate('/analyze')}
-          className="bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-green-200/50 hover:scale-105 hover:shadow-lg hover:shadow-green-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-green-200/50 hover:scale-105 hover:shadow-lg hover:shadow-green-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
-          <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 text-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <Camera size={24} />
+          <div className="relative z-10">
+            <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 text-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <Camera size={24} />
+            </div>
+            <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">智能望診</h3>
+            <p className="text-slate-600 text-sm leading-relaxed">上傳藥材或舌象照片，獲得專業的 AI 視覺分析。</p>
           </div>
-          <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">智能望診</h3>
-          <p className="text-slate-600 text-sm leading-relaxed">上傳藥材或舌象照片，獲得專業的 AI 視覺分析。</p>
         </div>
 
         <div 
           onClick={() => navigate('/edit')}
-          className="bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-purple-200/50 hover:scale-105 hover:shadow-lg hover:shadow-purple-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-purple-200/50 hover:scale-105 hover:shadow-lg hover:shadow-purple-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
-          <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-violet-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-            <Palette size={24} />
+          <div className="relative z-10">
+            <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-violet-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <Palette size={24} />
+            </div>
+            <h3 className="text-lg font-serif font-medium text-purple-700 mb-2">影像工作室</h3>
+            <p className="text-slate-600 text-sm leading-relaxed">視覺化治療方案與古風醫學圖像創作。</p>
           </div>
-          <h3 className="text-lg font-serif font-medium text-purple-700 mb-2">影像工作室</h3>
-          <p className="text-slate-600 text-sm leading-relaxed">視覺化治療方案與古風醫學圖像創作。</p>
         </div>
       </div>
     </div>
@@ -142,9 +163,26 @@ const AppContent: React.FC<{ showIntro: boolean; setShowIntro: (v: boolean) => v
   const location = useLocation();
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-b from-rose-50 via-purple-50 to-indigo-50 font-sans text-stone-800 flex flex-col overflow-hidden">
-      {/* 光暈背景裝飾層 */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
+    <div className="relative min-h-screen bg-gradient-to-b from-rose-50 via-purple-50 to-indigo-50 font-sans text-stone-800 flex flex-col overflow-hidden page-bg">
+      <style>{`
+        .page-bg::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background-image: url('/images-removebg-preview.png');
+          background-size: 160% auto;
+          background-repeat: no-repeat;
+          background-position: top left;
+          opacity: 0.22;
+          filter: brightness(110%) saturate(115%) blur(4px);
+          mix-blend-mode: screen;
+          z-index: 0;
+        }
+      `}</style>
+      <div className="relative z-10 flex flex-col min-h-screen">
+        {/* 光暈背景裝飾層 */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none -z-10">
         {/* 左上角玫瑰粉光暈 */}
         <div className="absolute -top-40 -left-40 w-96 h-96 bg-rose-300/30 rounded-full blur-3xl opacity-70"></div>
         
@@ -221,11 +259,11 @@ const AppContent: React.FC<{ showIntro: boolean; setShowIntro: (v: boolean) => v
           <div className="absolute -bottom-20 -left-20 w-96 h-96 bg-pink-400/10 rounded-full blur-3xl pointer-events-none"></div>
           <div className="absolute -top-20 -right-20 w-80 h-80 bg-indigo-400/10 rounded-full blur-3xl pointer-events-none"></div>
           
-          <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
-            <div className="flex justify-center items-center gap-2 mb-6">
-              <Leaf size={24} className="text-pink-300" />
-              <span className="font-serif font-light text-2xl bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">O.M.I.H</span>
-            </div>
+      <div className="max-w-6xl mx-auto px-4 text-center relative z-10">
+        <div className="flex justify-center items-center gap-2 mb-6">
+          <Leaf size={24} className="text-pink-300" />
+          <span className="font-serif font-light text-2xl bg-gradient-to-r from-pink-300 to-purple-300 bg-clip-text text-transparent">O.M.I.H</span>
+        </div>
             <div className="grid md:grid-cols-3 gap-8 mb-8 text-sm text-slate-300 border-b border-purple-700/50 pb-8">
               <div>
                 <h4 className="font-serif font-medium text-pink-200 mb-3">服務項目</h4>
@@ -251,6 +289,7 @@ const AppContent: React.FC<{ showIntro: boolean; setShowIntro: (v: boolean) => v
           </div>
         </footer>
       </div>
+    </div>
     </div>
   );
 };

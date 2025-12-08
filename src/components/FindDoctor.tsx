@@ -3,6 +3,7 @@ import { MapPin, Search, Star, Calendar, Navigation, Building2, Map as MapIcon }
 import { Button } from './Button';
 import { findDoctors } from '../services/geminiService';
 import { GroundingPlace } from '../types';
+import { DecoratedWrapper } from './DecoratedWrapper';
 
 export const FindDoctor: React.FC = () => {
   const [location, setLocation] = useState('');
@@ -64,7 +65,7 @@ export const FindDoctor: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto space-y-6 animate-fadeIn h-[calc(100vh-140px)] flex flex-col">
       {/* Search Header */}
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100 flex-shrink-0">
+      <DecoratedWrapper className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100 flex-shrink-0" imgOpacity={0.06}>
         <h2 className="text-2xl font-serif text-tcm-800 mb-6 flex items-center gap-2">
           <MapPin className="text-tcm-600" />
           尋找中醫師
@@ -122,7 +123,7 @@ export const FindDoctor: React.FC = () => {
             </Button>
           </div>
         </div>
-      </div>
+      </DecoratedWrapper>
 
       {/* Main Content Area - Split View */}
       <div className="flex-1 grid lg:grid-cols-2 gap-6 min-h-0">
@@ -206,7 +207,7 @@ export const FindDoctor: React.FC = () => {
         </div>
 
         {/* Right Column: Visual Map (Sticky) */}
-        <div className="bg-stone-200 rounded-2xl overflow-hidden shadow-inner border border-stone-300 relative min-h-[400px] lg:h-auto">
+        <DecoratedWrapper className="bg-stone-200 rounded-2xl overflow-hidden shadow-inner border border-stone-300 relative min-h-[400px] lg:h-auto" imgOpacity={0.06} imgObjectFit="contain">
           {mapQuery ? (
              <iframe
               title="Google Map"
@@ -224,7 +225,7 @@ export const FindDoctor: React.FC = () => {
               <p>地圖將在此顯示搜尋結果</p>
             </div>
           )}
-        </div>
+        </DecoratedWrapper>
       </div>
     </div>
   );

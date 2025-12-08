@@ -4,6 +4,7 @@ import { Button } from './Button';
 import { ImageFile } from '../types';
 import { editImage } from '../services/geminiService';
 import { Wand2, Download, ArrowRight, Sparkles } from 'lucide-react';
+import { DecoratedWrapper } from './DecoratedWrapper';
 
 export const Editor: React.FC = () => {
   const [sourceImage, setSourceImage] = useState<ImageFile | null>(null);
@@ -19,7 +20,6 @@ export const Editor: React.FC = () => {
     setError(null);
 
     try {
-      // Append specific context to ensure better results if the user is brief
       const enhancedPrompt = `${prompt}`;
       const resultBase64 = await editImage(sourceImage.base64, sourceImage.mimeType, enhancedPrompt);
       setGeneratedImage(resultBase64);
@@ -42,7 +42,7 @@ export const Editor: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100">
+      <DecoratedWrapper className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100" imgOpacity={0.08}>
         <h2 className="text-2xl font-serif text-tcm-800 mb-2 flex items-center gap-2">
           <Wand2 className="text-tcm-600" />
           中醫影像工作室
@@ -59,7 +59,7 @@ export const Editor: React.FC = () => {
               image={sourceImage} 
               onImageSelect={(file) => {
                 setSourceImage(file);
-                setGeneratedImage(null); // Reset result on new upload
+                setGeneratedImage(null);
               }}
               label="上傳圖片"
             />
@@ -132,7 +132,7 @@ export const Editor: React.FC = () => {
             </div>
           </div>
         </div>
-      </div>
+      </DecoratedWrapper>
     </div>
   );
 };
