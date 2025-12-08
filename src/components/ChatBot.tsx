@@ -11,13 +11,17 @@ export const ChatBot: React.FC = () => {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight;
+    }
   };
 
   useEffect(() => {
-    scrollToBottom();
+    // 延遲一點確保 DOM 更新完成
+    setTimeout(scrollToBottom, 100);
   }, [messages]);
 
   const handleSend = async () => {
@@ -54,10 +58,10 @@ export const ChatBot: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto animate-fadeIn">
-      <DecoratedWrapper className="h-[600px] bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-pink-200/50 flex flex-col overflow-hidden" imgOpacity={0.06}>
+    <div className="max-w-4xl mx-auto animate-fadeIn h-[calc(100vh-120px)] flex flex-col">
+      <DecoratedWrapper className="flex-1 bg-white/40 backdrop-blur-xl rounded-2xl shadow-lg border border-pink-200/50 flex flex-col overflow-hidden" imgOpacity={0.06}>
         {/* Header - Alicia Style */}
-        <div className="p-4 bg-gradient-to-r from-pink-100/50 via-purple-100/50 to-pink-100/50 border-b border-pink-200/50 flex items-center gap-3">
+        <div className="p-4 bg-gradient-to-r from-pink-100/50 via-purple-100/50 to-pink-100/50 border-b border-pink-200/50 flex items-center gap-3 flex-shrink-0">
         <div className="bg-gradient-to-br from-pink-200 to-purple-200 p-2 rounded-full text-pink-700">
           <Bot size={24} />
         </div>
@@ -68,7 +72,10 @@ export const ChatBot: React.FC = () => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-slate-50/50 to-slate-50/30">
+      <div 
+        ref={messagesContainerRef}
+        className="flex-1 overflow-y-auto p-4 space-y-4 bg-gradient-to-b from-slate-50/50 to-slate-50/30 scroll-smooth"
+      >
         {messages.map((msg, idx) => (
           <div 
             key={idx} 
@@ -81,12 +88,94 @@ export const ChatBot: React.FC = () => {
               {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
             </div>
             <div className={`
-              p-3 rounded-2xl text-sm leading-relaxed whitespace-pre-wrap shadow-sm backdrop-blur-sm
+              p-3 rounded-2xl text-sm leading-relaxed shadow-sm backdrop-blur-sm
               ${msg.role === 'user' 
                 ? 'bg-white/80 text-slate-800 border border-slate-200 rounded-tr-none' 
                 : 'bg-pink-100/60 text-slate-800 border border-pink-200/50 rounded-tl-none'}
             `}>
-              {msg.text}
+              {msg.role === 'user' ? (
+                // 使用者訊息：直接顯示
+                <div className="whitespace-pre-wrap">{msg.text}</div>
+              ) : (
+                // AI 回應：格式化處理
+                <div className="space-y-2">
+                  {msg.text.split('\n').map((line, lineIdx) => {
+                    const trimmed = line.trim();
+                    if (!trimmed) return <div key={lineIdx} className="h-2"></div>;
+                    
+                    const cleaned = trimmed.replace(/\*\*/g, '');
+                    
+                    // 數字編號列表
+                    const numberedMatch = cleaned.match(/^(\d+)[、.]\s*(.+)$/);
+                    if (numberedMatch) {
+                      const content = numberedMatch[2];
+                      const colonMatch = content.match(/^([^：:]+)[：:]\s*(.+)$/);
+                      
+                      if (colonMatch) {
+                        return (
+                          <div key={lineIdx} className="flex items-start gap-2 mb-1">
+                            <span className="flex-shrink-0 w-5 h-5 bg-pink-200 text-pink-800 rounded-full flex items-center justify-center text-xs font-bold">
+                              {numberedMatch[1]}
+                            </span>
+                            <div className="flex-1 text-sm">
+                              <span className="font-semibold text-pink-800">{colonMatch[1]}：</span>
+                              <span>{colonMatch[2]}</span>
+                            </div>
+                          </div>
+                        );
+                      }
+                      
+                      return (
+                        <div key={lineIdx} className="flex items-start gap-2 mb-1">
+                          <span className="flex-shrink-0 w-5 h-5 bg-pink-200 text-pink-800 rounded-full flex items-center justify-center text-xs font-bold">
+                            {numberedMatch[1]}
+                          </span>
+                          <span className="flex-1 text-sm">{content}</span>
+                        </div>
+                      );
+                    }
+                    
+                    // 項目符號列表
+                    if (cleaned.match(/^[•\*\-]\s+/)) {
+                      const content = cleaned.replace(/^[•\*\-]\s+/, '');
+                      const colonMatch = content.match(/^([^：:]+)[：:]\s*(.+)$/);
+                      
+                      if (colonMatch) {
+                        return (
+                          <div key={lineIdx} className="flex items-start gap-2 mb-1">
+                            <span className="text-pink-500 mt-0.5 flex-shrink-0">•</span>
+                            <div className="flex-1 text-sm">
+                              <span className="font-semibold text-pink-800">{colonMatch[1]}：</span>
+                              <span>{colonMatch[2]}</span>
+                            </div>
+                          </div>
+                        );
+                      }
+                      
+                      return (
+                        <div key={lineIdx} className="flex items-start gap-2 mb-1">
+                          <span className="text-pink-500 mt-0.5 flex-shrink-0">•</span>
+                          <span className="flex-1 text-sm">{content}</span>
+                        </div>
+                      );
+                    }
+                    
+                    // 標籤：內容格式
+                    const colonMatch = cleaned.match(/^([^：:]+)[：:]\s*(.+)$/);
+                    if (colonMatch && cleaned.length < 100) {
+                      return (
+                        <p key={lineIdx} className="text-sm mb-1">
+                          <span className="font-semibold text-pink-800">{colonMatch[1]}：</span>
+                          <span>{colonMatch[2]}</span>
+                        </p>
+                      );
+                    }
+                    
+                    // 一般段落
+                    return <p key={lineIdx} className="text-sm mb-1">{cleaned}</p>;
+                  })}
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -104,7 +193,7 @@ export const ChatBot: React.FC = () => {
       </div>
 
         {/* Input */}
-        <div className="p-4 bg-white border-t border-stone-100">
+        <div className="p-4 bg-white border-t border-stone-100 flex-shrink-0">
           <div className="relative flex items-end gap-2">
           <textarea
             value={input}

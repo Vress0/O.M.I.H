@@ -12,7 +12,7 @@ export const FindDoctor: React.FC = () => {
   const [resultText, setResultText] = useState<string | null>(null);
   const [places, setPlaces] = useState<GroundingPlace[]>([]);
   const [usingLocation, setUsingLocation] = useState(false);
-  const [mapQuery, setMapQuery] = useState<string>('');
+  const [mapQuery, setMapQuery] = useState<string>('台北市 中醫');
 
   const handleSearch = async () => {
     if (!location && !usingLocation) {
@@ -63,9 +63,9 @@ export const FindDoctor: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto space-y-6 animate-fadeIn h-[calc(100vh-140px)] flex flex-col">
+    <div className="max-w-7xl mx-auto space-y-6 animate-fadeIn flex flex-col pb-8">
       {/* Search Header */}
-      <DecoratedWrapper className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100 flex-shrink-0" imgOpacity={0.06}>
+      <DecoratedWrapper className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100" imgOpacity={0.06}>
         <h2 className="text-2xl font-serif text-tcm-800 mb-6 flex items-center gap-2">
           <MapPin className="text-tcm-600" />
           尋找中醫師
@@ -126,80 +126,128 @@ export const FindDoctor: React.FC = () => {
       </DecoratedWrapper>
 
       {/* Main Content Area - Split View */}
-      <div className="flex-1 grid lg:grid-cols-2 gap-6 min-h-0">
+      <div className="grid lg:grid-cols-2 gap-6">
         
         {/* Left Column: Results List (Scrollable) */}
-        <div className="flex flex-col gap-6 overflow-y-auto pr-2 pb-4">
+        <div className="flex flex-col gap-6">
           {(resultText || loading) && (
             <>
               {/* AI Summary */}
-              <div className="bg-white rounded-xl p-6 border border-stone-200 shadow-sm flex-shrink-0">
-                <h3 className="flex items-center gap-2 text-lg font-serif text-tcm-800 border-b border-tcm-200 pb-2 mb-4">
-                  <Building2 size={20} />
-                  AI 推薦摘要
+              <div className="bg-gradient-to-br from-tcm-50 to-amber-50 rounded-xl p-6 border border-tcm-200 shadow-sm flex-shrink-0">
+                <h3 className="flex items-center gap-2 text-lg font-serif text-tcm-800 border-b border-tcm-300 pb-3 mb-4">
+                  <Building2 size={20} className="text-tcm-600" />
+                  <span className="font-bold">AI 推薦摘要</span>
                 </h3>
                 {loading ? (
                   <div className="space-y-3 animate-pulse">
-                    <div className="h-4 bg-stone-100 rounded w-3/4"></div>
-                    <div className="h-4 bg-stone-100 rounded w-full"></div>
-                    <div className="h-4 bg-stone-100 rounded w-5/6"></div>
+                    <div className="h-4 bg-white/60 rounded w-3/4"></div>
+                    <div className="h-4 bg-white/60 rounded w-full"></div>
+                    <div className="h-4 bg-white/60 rounded w-5/6"></div>
+                    <div className="h-4 bg-white/60 rounded w-2/3"></div>
                   </div>
                 ) : (
-                  <div className="prose prose-stone max-w-none text-stone-700 whitespace-pre-wrap leading-relaxed">
-                    {resultText}
-                  </div>
-                )}
-              </div>
-
-              {/* Places List */}
-              <div className="space-y-4">
-                <h3 className="font-bold text-stone-700 flex items-center gap-2">
-                  <MapPin size={18} />
-                  推薦診所列表
-                </h3>
-                
-                {places.length > 0 ? (
-                  places.map((place, idx) => (
-                    <div key={idx} className="bg-white border border-stone-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow hover:border-tcm-300 group">
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h4 className="font-bold text-lg text-tcm-900 mb-1 group-hover:text-tcm-700">{place.title}</h4>
-                          {place.address && (
-                            <p className="text-sm text-stone-500 mb-2 flex items-center gap-1">
-                              <MapPin size={12} />
-                              {place.address}
-                            </p>
-                          )}
-                          <div className="flex items-center gap-1 mb-3 bg-amber-50 inline-flex px-2 py-1 rounded-md">
-                            <Star size={14} className="text-amber-400 fill-amber-400" />
-                            <span className="text-sm font-bold text-amber-700">{place.rating || "N/A"}</span>
+                  <div className="space-y-6">
+                    {(() => {
+                      // 解析並排序診所資訊
+                      const lines = resultText?.split('\n') || [];
+                      const clinics: { name: string; lines: string[]; rating: number }[] = [];
+                      let currentClinic: { name: string; lines: string[]; rating: number } | null = null;
+                      
+                      // 第一步：分組診所資訊
+                      lines.forEach(line => {
+                        const trimmed = line.trim();
+                        if (!trimmed) return;
+                        
+                        const cleaned = trimmed.replace(/^\*+\s*/, '').replace(/\*\*/g, '');
+                        const hasColon = cleaned.includes('：') || cleaned.includes(':');
+                        
+                        // 診所名稱（不含冒號的短行）
+                        if (!hasColon && cleaned.length > 0 && cleaned.length < 30) {
+                          if (currentClinic) {
+                            clinics.push(currentClinic);
+                          }
+                          currentClinic = { name: cleaned, lines: [], rating: 0 };
+                        } else if (currentClinic) {
+                          // 提取評分
+                          const ratingMatch = cleaned.match(/評分[：:]\s*([\d.]+)/);
+                          if (ratingMatch) {
+                            currentClinic.rating = parseFloat(ratingMatch[1]);
+                          }
+                          currentClinic.lines.push(line);
+                        }
+                      });
+                      
+                      if (currentClinic) {
+                        clinics.push(currentClinic);
+                      }
+                      
+                      // 第二步：按評分排序（高到低）
+                      clinics.sort((a, b) => b.rating - a.rating);
+                      
+                      // 第三步：渲染排序後的診所
+                      return clinics.map((clinic, clinicIdx) => (
+                        <div key={clinicIdx} className="bg-white rounded-xl p-5 shadow-sm border border-stone-200 hover:shadow-md transition-shadow">
+                          {/* 診所名稱 */}
+                          <div className="flex items-center gap-2 mb-4 pb-3 border-b border-stone-200">
+                            <MapPin size={20} className="text-tcm-600 flex-shrink-0" />
+                            <h4 className="text-lg font-bold text-tcm-900">
+                              {clinic.name}
+                            </h4>
+                          </div>
+                          
+                          {/* 診所詳細資訊 */}
+                          <div className="space-y-2.5">
+                            {clinic.lines.map((line, lineIdx) => {
+                              const trimmed = line.trim();
+                              if (!trimmed) return null;
+                              
+                              const cleaned = trimmed.replace(/^\*+\s*/, '').replace(/\*\*/g, '');
+                              const colonMatch = cleaned.match(/^([^：:]+)[：:]\s*(.+)$/);
+                              
+                              if (colonMatch) {
+                                const [, label, content] = colonMatch;
+                                const cleanLabel = label.trim();
+                                const cleanContent = content.trim();
+                                
+                                if (cleanLabel.includes('評分')) {
+                                  return (
+                                    <div key={lineIdx} className="flex items-center gap-2.5 py-1">
+                                      <Star size={18} className="text-amber-500 fill-amber-500 flex-shrink-0" />
+                                      <span className="text-stone-600 font-medium">{cleanLabel}：</span>
+                                      <span className="text-amber-700 font-bold text-base">{cleanContent}</span>
+                                    </div>
+                                  );
+                                }
+                                
+                                if (cleanLabel.includes('地址')) {
+                                  return (
+                                    <div key={lineIdx} className="flex items-start gap-2.5 py-1">
+                                      <Navigation size={18} className="text-stone-500 flex-shrink-0 mt-0.5" />
+                                      <span className="text-stone-600 font-medium flex-shrink-0">{cleanLabel}：</span>
+                                      <span className="text-stone-800">{cleanContent}</span>
+                                    </div>
+                                  );
+                                }
+                                
+                                return (
+                                  <div key={lineIdx} className="flex items-start gap-2.5 py-1">
+                                    <span className="text-stone-600 font-medium flex-shrink-0 min-w-[80px]">{cleanLabel}：</span>
+                                    <span className="text-stone-800 leading-relaxed">{cleanContent}</span>
+                                  </div>
+                                );
+                              }
+                              
+                              return (
+                                <p key={lineIdx} className="text-stone-700 leading-relaxed py-1">
+                                  {cleaned}
+                                </p>
+                              );
+                            })}
                           </div>
                         </div>
-                      </div>
-                      
-                      <div className="flex gap-3 mt-2">
-                        <a 
-                          href={place.uri} 
-                          target="_blank" 
-                          rel="noreferrer"
-                          className="flex-1 text-center py-2.5 bg-stone-50 hover:bg-stone-100 text-stone-700 rounded-lg text-sm font-medium transition-colors border border-stone-200 flex items-center justify-center gap-2"
-                        >
-                          <MapIcon size={16} />
-                          Google 地圖
-                        </a>
-                        <button className="flex-1 flex items-center justify-center gap-2 py-2.5 bg-tcm-600 hover:bg-tcm-700 text-white rounded-lg text-sm font-medium transition-colors shadow-sm">
-                          <Calendar size={16} />
-                          預約掛號
-                        </button>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  !loading && (
-                    <div className="text-center p-8 bg-stone-50 rounded-xl border border-dashed border-stone-300 text-stone-400 text-sm">
-                      請輸入條件並搜尋以查看推薦診所
-                    </div>
-                  )
+                      ));
+                    })()}
+                  </div>
                 )}
               </div>
             </>
@@ -207,25 +255,24 @@ export const FindDoctor: React.FC = () => {
         </div>
 
         {/* Right Column: Visual Map (Sticky) */}
-        <DecoratedWrapper className="bg-stone-200 rounded-2xl overflow-hidden shadow-inner border border-stone-300 relative min-h-[400px] lg:h-auto" imgOpacity={0.06} imgObjectFit="contain">
+        <div className="bg-stone-200 rounded-2xl overflow-hidden shadow-inner border border-stone-300 h-[500px] lg:sticky lg:top-6 lg:self-start">
           {mapQuery ? (
-             <iframe
+            <iframe
               title="Google Map"
               width="100%"
               height="100%"
-              style={{ border: 0, minHeight: '100%' }}
+              style={{ border: 0, display: 'block' }}
               loading="lazy"
               allowFullScreen
               src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
-              className="absolute inset-0"
             ></iframe>
           ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center text-stone-400 bg-stone-100">
+            <div className="w-full h-full flex flex-col items-center justify-center text-stone-400 bg-stone-100">
               <MapIcon size={64} className="opacity-20 mb-4" />
               <p>地圖將在此顯示搜尋結果</p>
             </div>
           )}
-        </DecoratedWrapper>
+        </div>
       </div>
     </div>
   );

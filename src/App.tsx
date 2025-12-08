@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import Secret from './pages/Secret';
-import { Analyzer } from './components/Analyzer';
-import { Editor } from './components/Editor';
 import { ChatBot } from './components/ChatBot';
 import { Constitution } from './components/Constitution';
 import { FindDoctor } from './components/FindDoctor';
 import { KnowledgeBase } from './components/KnowledgeBase';
-import { Leaf, Activity, Camera, Palette, MessageCircle, ClipboardCheck, BookOpen, MapPin } from 'lucide-react';
+import { Leaf, MessageCircle, ClipboardCheck, BookOpen, MapPin } from 'lucide-react';
 
 // 開場動畫元件 - Alicia Style 淡出過場
 const IntroOverlay: React.FC<{ onFinish: () => void }> = ({ onFinish }) => {
@@ -74,85 +72,61 @@ const HomePage: React.FC<{ navigate: (path: string) => void }> = ({ navigate }) 
         </div>
       </div>
 
-      {/* Feature Grid - Glass Morphism */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {/* Feature Grid - 2x2 Layout */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
         <div 
           onClick={() => navigate('/chat')}
-          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-pink-200/50 hover:scale-105 hover:shadow-lg hover:shadow-pink-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-8 rounded-2xl border border-pink-200/50 hover:scale-105 hover:shadow-lg hover:shadow-pink-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
           <div className="relative z-10">
-            <div className="w-12 h-12 bg-gradient-to-br from-pink-100 to-purple-100 text-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <MessageCircle size={24} />
+            <div className="w-14 h-14 bg-gradient-to-br from-pink-100 to-purple-100 text-pink-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <MessageCircle size={28} />
             </div>
-            <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">AI 健康小助理</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">24/7 智能問答，即時分析症狀並提供養生建議。</p>
+            <h3 className="text-xl font-serif font-medium text-pink-700 mb-3">AI 健康小助理</h3>
+            <p className="text-slate-600 leading-relaxed">24/7 智能問答，即時分析症狀並提供養生建議。</p>
           </div>
         </div>
 
         <div 
           onClick={() => navigate('/knowledge-base')}
-          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-purple-200/50 hover:scale-105 hover:shadow-lg hover:shadow-purple-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-8 rounded-2xl border border-purple-200/50 hover:scale-105 hover:shadow-lg hover:shadow-purple-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
           <div className="relative z-10">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-indigo-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <BookOpen size={24} />
+            <div className="w-14 h-14 bg-gradient-to-br from-purple-100 to-indigo-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <BookOpen size={28} />
             </div>
-            <h3 className="text-lg font-serif font-medium text-purple-700 mb-2">中醫知識庫</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">包含中藥、方劑、穴位與養生的結構化百科全書。</p>
+            <h3 className="text-xl font-serif font-medium text-purple-700 mb-3">中醫知識庫</h3>
+            <p className="text-slate-600 leading-relaxed">包含中藥、方劑、穴位與養生的結構化百科全書。</p>
           </div>
         </div>
 
         <div 
           onClick={() => navigate('/constitution')}
-          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-pink-200/50 hover:scale-105 hover:shadow-lg hover:shadow-pink-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-8 rounded-2xl border border-rose-200/50 hover:scale-105 hover:shadow-lg hover:shadow-rose-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
           <div className="relative z-10">
-            <div className="w-12 h-12 bg-gradient-to-br from-rose-100 to-pink-100 text-rose-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <ClipboardCheck size={24} />
+            <div className="w-14 h-14 bg-gradient-to-br from-rose-100 to-pink-100 text-rose-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <ClipboardCheck size={28} />
             </div>
-            <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">體質檢測</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">分析九大體質，提供專屬的飲食與調理方案。</p>
+            <h3 className="text-xl font-serif font-medium text-pink-700 mb-3">體質檢測</h3>
+            <p className="text-slate-600 leading-relaxed">分析九大體質，提供專屬的飲食與調理方案。</p>
           </div>
         </div>
 
         <div 
           onClick={() => navigate('/find-doctor')}
-          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-red-200/50 hover:scale-105 hover:shadow-lg hover:shadow-red-200/50 hover:bg-white/60 transition-all cursor-pointer group"
+          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-8 rounded-2xl border border-red-200/50 hover:scale-105 hover:shadow-lg hover:shadow-red-200/50 hover:bg-white/60 transition-all cursor-pointer group"
         >
           <div className="relative z-10">
-            <div className="w-12 h-12 bg-gradient-to-br from-red-100 to-pink-100 text-red-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <MapPin size={24} />
+            <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-pink-100 text-red-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+              <MapPin size={28} />
             </div>
-            <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">尋找醫師</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">根據地區與專科，尋找最適合您的中醫專家。</p>
+            <h3 className="text-xl font-serif font-medium text-pink-700 mb-3">尋找醫師</h3>
+            <p className="text-slate-600 leading-relaxed">根據地區與專科，尋找最適合您的中醫專家。</p>
           </div>
         </div>
 
-        <div 
-          onClick={() => navigate('/analyze')}
-          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-green-200/50 hover:scale-105 hover:shadow-lg hover:shadow-green-200/50 hover:bg-white/60 transition-all cursor-pointer group"
-        >
-          <div className="relative z-10">
-            <div className="w-12 h-12 bg-gradient-to-br from-green-100 to-emerald-100 text-green-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Camera size={24} />
-            </div>
-            <h3 className="text-lg font-serif font-medium text-pink-700 mb-2">智能望診</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">上傳藥材或舌象照片，獲得專業的 AI 視覺分析。</p>
-          </div>
-        </div>
 
-        <div 
-          onClick={() => navigate('/edit')}
-          className="relative overflow-hidden bg-white/40 backdrop-blur-xl p-6 rounded-2xl border border-purple-200/50 hover:scale-105 hover:shadow-lg hover:shadow-purple-200/50 hover:bg-white/60 transition-all cursor-pointer group"
-        >
-          <div className="relative z-10">
-            <div className="w-12 h-12 bg-gradient-to-br from-purple-100 to-violet-100 text-purple-600 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-              <Palette size={24} />
-            </div>
-            <h3 className="text-lg font-serif font-medium text-purple-700 mb-2">影像工作室</h3>
-            <p className="text-slate-600 text-sm leading-relaxed">視覺化治療方案與古風醫學圖像創作。</p>
-          </div>
-        </div>
       </div>
     </div>
   );
@@ -224,8 +198,6 @@ const AppContent: React.FC<{ showIntro: boolean; setShowIntro: (v: boolean) => v
               <NavButton active={location.pathname === '/chat'} onClick={() => navigate('/chat')} icon={<MessageCircle size={16} />} label="諮詢" />
               <NavButton active={location.pathname === '/constitution'} onClick={() => navigate('/constitution')} icon={<ClipboardCheck size={16} />} label="體質" />
               <NavButton active={location.pathname === '/find-doctor'} onClick={() => navigate('/find-doctor')} icon={<MapPin size={16} />} label="醫師" />
-              <NavButton active={location.pathname === '/analyze'} onClick={() => navigate('/analyze')} icon={<Activity size={16} />} label="望診" />
-              <NavButton active={location.pathname === '/edit'} onClick={() => navigate('/edit')} icon={<Palette size={16} />} label="創作" />
             </nav>
           </div>
         </header>
@@ -236,8 +208,6 @@ const AppContent: React.FC<{ showIntro: boolean; setShowIntro: (v: boolean) => v
             <Route path="/" element={<HomePage navigate={navigate} />} />
             <Route path="/chat" element={<ChatBot />} />
             <Route path="/constitution" element={<Constitution />} />
-            <Route path="/analyze" element={<Analyzer />} />
-            <Route path="/edit" element={<Editor />} />
             <Route path="/find-doctor" element={<FindDoctor />} />
             <Route path="/knowledge-base" element={<KnowledgeBase />} />
             <Route path="/secret" element={<Secret />} />
@@ -277,14 +247,14 @@ const AppContent: React.FC<{ showIntro: boolean; setShowIntro: (v: boolean) => v
               </div>
               <div>
                 <h4 className="font-serif font-medium text-pink-200 mb-3">聯絡資訊</h4>
-                <p className="leading-relaxed">Email: contact@omih.hub</p>
+                <p className="leading-relaxed">Email: omih@gmail.com</p>
               </div>
             </div>
             <p className="text-xs text-slate-400">
               免責聲明：本平台提供的所有資訊僅供參考，不構成專業醫療建議、診斷或治療。如感身體不適，請務必諮詢合格醫師。
             </p>
             <p className="text-xs text-slate-500 mt-2">
-              © 2024 Oriental MedIntelli Hub. All rights reserved.
+              © 2025 Oriental MedIntelli Hub. All rights reserved.
             </p>
           </div>
         </footer>

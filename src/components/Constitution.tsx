@@ -59,22 +59,140 @@ export const Constitution: React.FC = () => {
           </div>
           
           <div className="p-8 space-y-8">
+            {/* 體質特徵 */}
             <div>
-              <h3 className="flex items-center gap-2 text-xl font-serif text-tcm-800 mb-3">
+              <h3 className="flex items-center gap-2 text-xl font-serif text-tcm-800 mb-4">
                 <FileText className="text-tcm-500" /> 體質特徵
               </h3>
-              <p className="text-stone-600 leading-relaxed bg-stone-50 p-4 rounded-xl">
-                {result.description}
-              </p>
+              <div className="bg-stone-50 p-5 rounded-xl space-y-3">
+                {result.description.split('\n').map((line, idx) => {
+                  const trimmed = line.trim();
+                  if (!trimmed) return null;
+                  
+                  const cleaned = trimmed.replace(/\*\*/g, '');
+                  
+                  // 項目符號列表
+                  if (cleaned.match(/^[•\*\-]\s+/)) {
+                    const content = cleaned.replace(/^[•\*\-]\s+/, '');
+                    const colonMatch = content.match(/^([^：:]+)[：:]\s*(.+)$/);
+                    
+                    if (colonMatch) {
+                      return (
+                        <div key={idx} className="flex items-start gap-3">
+                          <span className="text-tcm-500 mt-1 flex-shrink-0">•</span>
+                          <div className="flex-1">
+                            <span className="font-semibold text-tcm-800">{colonMatch[1]}：</span>
+                            <span className="text-stone-700">{colonMatch[2]}</span>
+                          </div>
+                        </div>
+                      );
+                    }
+                    
+                    return (
+                      <div key={idx} className="flex items-start gap-3">
+                        <span className="text-tcm-500 mt-1 flex-shrink-0">•</span>
+                        <span className="text-stone-700">{content}</span>
+                      </div>
+                    );
+                  }
+                  
+                  // 檢查是否為「標籤：內容」格式
+                  const colonMatch = cleaned.match(/^([^：:]+)[：:]\s*(.+)$/);
+                  if (colonMatch) {
+                    return (
+                      <p key={idx} className="text-stone-700">
+                        <span className="font-semibold text-tcm-800">{colonMatch[1]}：</span>
+                        {colonMatch[2]}
+                      </p>
+                    );
+                  }
+                  
+                  return <p key={idx} className="text-stone-700">{cleaned}</p>;
+                })}
+              </div>
             </div>
 
+            {/* 養生建議 */}
             <div>
-              <h3 className="flex items-center gap-2 text-xl font-serif text-tcm-800 mb-3">
+              <h3 className="flex items-center gap-2 text-xl font-serif text-tcm-800 mb-4">
                 <CheckCircle className="text-tcm-500" /> 養生建議
               </h3>
-              <p className="text-stone-600 leading-relaxed bg-tcm-50 p-4 rounded-xl border border-tcm-100">
-                {result.advice}
-              </p>
+              <div className="bg-tcm-50 p-5 rounded-xl border border-tcm-100 space-y-3">
+                {result.advice.split('\n').map((line, idx) => {
+                  const trimmed = line.trim();
+                  if (!trimmed) return null;
+                  
+                  const cleaned = trimmed.replace(/\*\*/g, '');
+                  
+                  // 數字編號列表
+                  const numberedMatch = cleaned.match(/^(\d+)[、.]\s*(.+)$/);
+                  if (numberedMatch) {
+                    const content = numberedMatch[2];
+                    const colonMatch = content.match(/^([^：:]+)[：:]\s*(.+)$/);
+                    
+                    if (colonMatch) {
+                      return (
+                        <div key={idx} className="flex items-start gap-3">
+                          <span className="flex-shrink-0 w-6 h-6 bg-tcm-200 text-tcm-800 rounded-full flex items-center justify-center text-sm font-bold">
+                            {numberedMatch[1]}
+                          </span>
+                          <div className="flex-1">
+                            <span className="font-semibold text-tcm-800">{colonMatch[1]}：</span>
+                            <span className="text-stone-700">{colonMatch[2]}</span>
+                          </div>
+                        </div>
+                      );
+                    }
+                    
+                    return (
+                      <div key={idx} className="flex items-start gap-3">
+                        <span className="flex-shrink-0 w-6 h-6 bg-tcm-200 text-tcm-800 rounded-full flex items-center justify-center text-sm font-bold">
+                          {numberedMatch[1]}
+                        </span>
+                        <span className="text-stone-700">{content}</span>
+                      </div>
+                    );
+                  }
+                  
+                  // 項目符號列表
+                  if (cleaned.match(/^[•\*\-]\s+/)) {
+                    const content = cleaned.replace(/^[•\*\-]\s+/, '');
+                    const colonMatch = content.match(/^([^：:]+)[：:]\s*(.+)$/);
+                    
+                    if (colonMatch) {
+                      return (
+                        <div key={idx} className="flex items-start gap-3">
+                          <span className="text-tcm-500 mt-1 flex-shrink-0">•</span>
+                          <div className="flex-1">
+                            <span className="font-semibold text-tcm-800">{colonMatch[1]}：</span>
+                            <span className="text-stone-700">{colonMatch[2]}</span>
+                          </div>
+                        </div>
+                      );
+                    }
+                    
+                    return (
+                      <div key={idx} className="flex items-start gap-3">
+                        <span className="text-tcm-500 mt-1 flex-shrink-0">•</span>
+                        <span className="text-stone-700">{content}</span>
+                      </div>
+                    );
+                  }
+                  
+                  // 檢查是否為「標籤：內容」格式
+                  const colonMatch = cleaned.match(/^([^：:]+)[：:]\s*(.+)$/);
+                  if (colonMatch) {
+                    return (
+                      <p key={idx} className="text-stone-700">
+                        <span className="font-semibold text-tcm-800">{colonMatch[1]}：</span>
+                        {colonMatch[2]}
+                      </p>
+                    );
+                  }
+                  
+                  return <p key={idx} className="text-stone-700">{cleaned}</p>;
+                })}
+              </div>
             </div>
 
             <Button 

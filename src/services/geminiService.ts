@@ -1,14 +1,23 @@
 import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
 import { DoctorSearchResult, GroundingPlace, KnowledgeItem } from "../types";
 
-const apiKey = import.meta.env.VITE_API_KEY || '';
+// 從環境變數中讀取 API 金鑰
+const apiKey = import.meta.env.VITE_API_KEY as string;
+
 // 驗證 API 金鑰是否存在
-if (!apiKey) {
-  console.error('⚠️ VITE_API_KEY 未設定！請檢查 .env.local 檔案');
+if (!apiKey || apiKey.trim() === '') {
+  console.error('⚠️ 錯誤：VITE_API_KEY 未設定或為空！');
+  console.error('請確認：');
+  console.error('1. .env.local 檔案中有 VITE_API_KEY=你的金鑰');
+  console.error('2. 已重新啟動開發伺服器 (npm run dev)');
+  console.error('3. 金鑰格式正確 (應以 AIzaSy 開頭)');
 } else {
-  console.log('✅ API 金鑰已載入 (長度:', apiKey.length, ')');
+  console.log('✅ API 金鑰已成功載入 (長度:', apiKey.length, '字元)');
+  // 顯示金鑰的前幾個字符進行驗證
+  console.log('✅ 金鑰開頭: ' + apiKey.substring(0, 10) + '...');
 }
-const ai = new GoogleGenAI({ apiKey });
+
+const ai = new GoogleGenAI({ apiKey: apiKey || 'dummy-key' });
 
 /**
  * Analyzes an image using Gemini 3 Pro Preview.
