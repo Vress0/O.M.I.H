@@ -3,6 +3,7 @@ import { Search, BookOpen, ArrowLeft, Tag, FileText, FlaskConical, Sprout, Circl
 import { Button } from './Button';
 import { searchKnowledge, getKnowledgeArticle } from '../services/geminiService';
 import { KnowledgeItem } from '../types';
+import { DecoratedWrapper } from './DecoratedWrapper';
 
 export const KnowledgeBase: React.FC = () => {
   const [view, setView] = useState<'home' | 'list' | 'detail'>('home');
@@ -66,7 +67,7 @@ export const KnowledgeBase: React.FC = () => {
 
   const renderHome = () => (
     <div className="space-y-12 animate-fadeIn">
-      <div className="text-center space-y-6 py-8">
+      <DecoratedWrapper className="text-center space-y-6 py-8" imgOpacity={0.06} imgObjectFit="contain">
         <div className="space-y-3">
           <div className="flex justify-center">
             <div className="h-1 w-16 bg-gradient-to-r from-pink-200 via-purple-200 to-pink-200 rounded-full"></div>
@@ -98,7 +99,7 @@ export const KnowledgeBase: React.FC = () => {
             搜尋
           </Button>
         </div>
-      </div>
+      </DecoratedWrapper>
 
       <div className="grid md:grid-cols-2 gap-6">
         {categories.map((cat) => (

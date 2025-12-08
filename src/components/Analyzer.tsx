@@ -4,6 +4,7 @@ import { Button } from './Button';
 import { ImageFile } from '../types';
 import { analyzeImage } from '../services/geminiService';
 import { ScanSearch, ScrollText, AlertCircle } from 'lucide-react';
+import { DecoratedWrapper } from './DecoratedWrapper';
 
 export const Analyzer: React.FC = () => {
   const [image, setImage] = useState<ImageFile | null>(null);
@@ -39,7 +40,7 @@ export const Analyzer: React.FC = () => {
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 animate-fadeIn">
-      <div className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100">
+      <DecoratedWrapper className="bg-white rounded-2xl p-6 shadow-sm border border-stone-100" imgOpacity={0.08}>
         <h2 className="text-2xl font-serif text-tcm-800 mb-2 flex items-center gap-2">
           <ScanSearch className="text-tcm-600" />
           AI 智能望診
@@ -90,7 +91,7 @@ export const Analyzer: React.FC = () => {
             )}
           </div>
         </div>
-      </div>
+      </DecoratedWrapper>
     </div>
   );
 };
