@@ -17,8 +17,6 @@ O.M.I.H (Oriental MedIntelli Hub) 是一個創新的健康管理平台，將傳�
 - 📚 **中醫知識庫** - 包含中藥、方劑、穴位與養生的結構化百科全書
 - 🔍 **體質檢測** - 分析九大體質，提供專屬的飲食與調理方案
 - 🏥 **尋找醫師** - 根據地區與專科，尋找最適合您的中醫專家
-- 📷 **影像分析** - AI 輔助的舌診、面診等傳統中醫診斷
-- ✏️ **圖像編輯** - 內建圖像處理工具
 
 ## 🛠️ 技術架構
 
@@ -194,11 +192,9 @@ O.M.I.H/
 │   ├── main.tsx            # 應用程式入口點
 │   ├── types.ts            # TypeScript 類型定義
 │   ├── components/         # React 組件
-│   │   ├── Analyzer.tsx    # 影像分析組件
 │   │   ├── Button.tsx      # 通用按鈕組件
 │   │   ├── ChatBot.tsx     # AI 聊天機器人
 │   │   ├── Constitution.tsx # 體質檢測
-│   │   ├── Editor.tsx      # 圖像編輯器
 │   │   ├── FindDoctor.tsx  # 醫師搜尋
 │   │   ├── ImageUploader.tsx # 圖像上傳
 │   │   └── KnowledgeBase.tsx # 知識庫
@@ -221,19 +217,13 @@ O.M.I.H/
 - 飲食調理建議
 - 生活方式指導
 
-### 3. 影像分析 (Analyzer)
-- 舌診 AI 分析
-- 面診特徵識別
-- 健康狀況評估
-- 專業診斷建議
-
-### 4. 中醫知識庫 (KnowledgeBase)
+### 3. 中醫知識庫 (KnowledgeBase)
 - 中藥材資料庫
 - 經典方劑查詢
 - 穴位圖解說明
 - 養生保健知識
 
-### 5. 尋找醫師 (FindDoctor)
+### 4. 尋找醫師 (FindDoctor)
 - 地理位置搜尋
 - 專科分類篩選
 - 醫師資訊展示
