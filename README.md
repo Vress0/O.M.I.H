@@ -196,7 +196,6 @@ O.M.I.H/
 │   │   ├── ChatBot.tsx     # AI 聊天機器人
 │   │   ├── Constitution.tsx # 體質檢測
 │   │   ├── FindDoctor.tsx  # 醫師搜尋
-│   │   ├── ImageUploader.tsx # 圖像上傳
 │   │   └── KnowledgeBase.tsx # 知識庫
 │   └── services/
 │       └── geminiService.ts # 前端 AI 服務
