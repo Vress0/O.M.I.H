@@ -83,7 +83,7 @@ const HomePage: React.FC<{ navigate: (path: string) => void }> = ({ navigate }) 
               <MessageCircle size={28} />
             </div>
             <h3 className="text-xl font-serif font-medium text-pink-700 mb-3">AI 健康小助理</h3>
-            <p className="text-slate-600 leading-relaxed">24/7 智能問答，即時分析症狀並提供養生建議。</p>
+            <p className="text-slate-600 leading-relaxed">智能問答，即時分析症狀並提供養生建議。</p>
           </div>
         </div>
 
@@ -240,6 +240,7 @@ const AppContent: React.FC<{ showIntro: boolean; setShowIntro: (v: boolean) => v
                 <p className="leading-relaxed">AI 症狀檢查</p>
                 <p className="leading-relaxed">體質檢測</p>
                 <p className="leading-relaxed">中醫知識庫</p>
+                <p className="leading-relaxed">尋找中醫師</p>
               </div>
               <div>
                 <h4 className="font-serif font-medium text-pink-200 mb-3">關於我們</h4>
