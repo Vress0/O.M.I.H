@@ -92,19 +92,16 @@ npm install
 yarn install
 ```
 
-3. **設定環境變數**
+3. **取得 Gemini API 金鑰**
+   - 前往 [Google AI Studio](https://makersuite.google.com/app/apikey)
+   - 登入您的 Google 帳戶
+   - 點擊「Create API Key」
+   - 複製生成的 API 金鑰並貼到 `.env.local` 檔案中
 
-   **方法一：使用範例檔案**
-   ```bash
-   # 複製範例檔案
-   cp .env.example .env.local
-   
-   # 編輯 .env.local 並填入您的 API 金鑰
-   # Windows 用戶可以使用 notepad .env.local
-   # macOS/Linux 用戶可以使用 nano .env.local
-   ```
+     
+4. **設定環境變數**
 
-   **方法二：手動創建**
+   **手動創建**
    在專案根目錄創建 `.env.local` 檔案，內容如下：
    ```env
    # Google Gemini AI API Key
@@ -114,14 +111,11 @@ yarn install
    NODE_ENV=development
    ```
 
-4. **取得 Gemini API 金鑰**
-   - 前往 [Google AI Studio](https://makersuite.google.com/app/apikey)
-   - 登入您的 Google 帳戶
-   - 點擊「Create API Key」
-   - 複製生成的 API 金鑰並貼到 `.env.local` 檔案中
+
 
 5. **啟動開發伺服器**
 ```bash
+py .\backend\app.py  
 npm run dev
 ```
 
