@@ -2,27 +2,9 @@ export enum AppMode {
   Home = 'HOME',
   Chat = 'CHAT',
   Constitution = 'CONSTITUTION',
-  Analyze = 'ANALYZE',
-  Edit = 'EDIT',
   FindDoctor = 'FIND_DOCTOR',
   Secret = 'SECRET',
   KnowledgeBase = 'KNOWLEDGE_BASE'
-}
-
-export interface AnalysisResult {
-  text: string;
-}
-
-export interface ImageEditResult {
-  imageData: string; // Base64 string
-  mimeType: string;
-}
-
-export interface ImageFile {
-  file: File;
-  previewUrl: string;
-  base64: string;
-  mimeType: string;
 }
 
 export interface ChatMessage {
